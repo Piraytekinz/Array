@@ -1,0 +1,54 @@
+label {
+    color: white;
+    font-family: monospace;
+    font-weight: bold;
+}
+
+label b {
+    color: rgb(57, 255, 31);
+    font-size: large;
+}
+
+input[type=range] {
+    background: rgb(57, 255, 31);
+}
+
+.custom-slider {
+height: 6px;
+border-radius: 5px;
+outline: none;
+-webkit-appearance: none;
+}
+
+/* Track color */
+.custom-slider::-webkit-slider-runnable-track {
+background: none;
+height: 6px;
+border-radius: 5px;
+}
+
+/* Thumb color */
+.custom-slider::-webkit-slider-thumb {
+-webkit-appearance: none;
+height: 16px;
+width: 16px;
+border-radius: 50%;
+background: rgb(57, 255, 31);
+cursor: pointer;
+margin-top: -5px;
+}
+
+/* For Firefox */
+.custom-slider::-moz-range-track {
+background: rgb(57, 255, 31);
+height: 6px;
+}
+
+.custom-slider::-moz-range-thumb {
+background: rgb(57, 255, 31);
+border: none;
+border-radius: 50%;
+height: 16px;
+width: 16px;
+cursor: pointer;
+}

@@ -1,0 +1,67 @@
+.preset-container {
+    overflow-y: scroll;
+    position: fixed;
+    left: -150%;
+    transition: left 0.3s ease;
+    background: black;
+    height: 100vh;
+    width: 70%;
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* padding: 20px; */
+    margin: 0px;
+    top: 0%;
+}
+
+ul {
+    width: 100%;
+    padding: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    height: fit-content;
+    margin: 20px;
+}
+
+ul li {
+    height: 200px;
+    width: fit-content;
+    border: 1px solid green;
+    list-style: none;
+    /* margin-top: 10px; */
+    max-height: 300px;
+}
+
+ul li p {
+    color: white;
+    margin-left: 10px;
+}
+
+ul li img {
+    max-height: 90%;
+    max-width: 100%;
+    width: auto;
+    position: relative;
+}
+
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 2px; 
+    display: none;
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+::-webkit-scrollbar-track {
+    display: none; 
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    display: none; 
+}

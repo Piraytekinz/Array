@@ -1,0 +1,22 @@
+.image-container {
+    height: 300px;
+    width: 300px;
+    border: 1px solid rgb(57, 255, 31);
+}
+
+video {
+    height: 100%;
+    width: 100%;
+}
+img  {
+    height: 100%;
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    .image-container {
+        height: 270px;
+        width: 270px;
+    }
+    
+}

@@ -1,0 +1,23 @@
+.upload {
+    background: rgb(57, 255, 31);
+    height: 40px;
+    width: 40px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid rgb(57, 255, 31);
+    align-self: flex-start;
+}
+
+.upload:hover {
+    background: none;
+    color: rgb(57, 255, 31);
+}
+
+p {
+    margin: 0px;
+    font-family: monospace;
+    font-weight: bold;
+}

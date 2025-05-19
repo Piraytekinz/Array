@@ -1,0 +1,109 @@
+@font-face {
+    font-family: hilbert;
+    src: url('public/fonts/Montserrat-Regular.ttf');
+
+}
+
+div.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+
+.back {
+    position: absolute;
+    z-index: 1;
+    height: 100vh;
+    width: 100%;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
+    background: linear-gradient(rgba(20, 20, 20, 0.358), black);
+    height: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+.content h1 {
+    color: rgb(57, 255, 31);
+    font-size: 80px;
+    font-family:'Courier New', Courier, monospace;
+    margin: 20px;
+    z-index: 10000;
+}
+
+.content p {
+    color: rgb(57, 255, 31);
+    font-family: monospace;
+    margin-bottom: 30px;
+}
+
+.content button {
+    width: fit-content;
+    padding: 20px;
+}
+
+section {
+    height: fit-content;
+    background: black;
+    padding-top: 100px;
+}
+section p {
+    color: rgb(57, 255, 31);
+    margin: 10px;
+    font-family:hilbert;
+    font-size: 14px;
+    font-weight:100;
+}
+
+.rest {
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 50px;
+    background: black;
+    gap: 0px;
+}
+
+.image {
+    height: fit-content;
+    width: fit-content;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+}
+
+.image img {
+    height: 50%;
+    width: 50%;
+    border: 2px solid black;
+    padding: 0px;
+    margin: 0px;
+}
+
+@media (max-width: 600px) {
+    .image {
+        display: block;
+    }
+    .image img {
+        height: 100%;
+        width: 100%;
+        border: none;
+    }
+
+    .content p {
+        font-size: 13px;
+    }
+
+    section p {
+        font-size: 12px;
+    }
+}
+
