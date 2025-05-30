@@ -55,8 +55,9 @@ h2 {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 30px;
+    gap: 25px;
     width: 300px;
+    position: relative;
 }
 
 .button-container button {
@@ -136,7 +137,7 @@ h3 {
     width: 300px;
 }
 
-.download-btn {
+.download-btn, .share-btn, .save-btn {
     background: rgb(57, 255, 31);
     height: 40px;
     width: 40px;
@@ -148,21 +149,39 @@ h3 {
     border: 1px solid rgb(57, 255, 31);
     align-self: flex-start;
 }
-.download-btn:hover {
+.download-btn:hover, .share-btn:hover, .save-btn:hover {
     background: none;
 }
 
-.download-btn img {
+.download-btn img, .share-btn img, .save-btn img {
     height: 30%;
     width: 30%;
 }
-.download-btn:hover img {
+.download-btn:hover img, .share-btn:hover img, .save-btn:hover img {
     filter: brightness(0) saturate(100%) invert(60%) sepia(100%) saturate(472%) hue-rotate(75deg) brightness(104%) contrast(101%);
 }
 
+.saving-container {
+    display: flex;
+    width: 300px;
+    align-items: center;
+    gap: 10px;
+    height: fit-content;
+}
+.saving-container p {
+    color: rgb(57, 255, 31);
+    letter-spacing: 1px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 @media (max-width: 600px) {
+    button:hover {
+        background: rgb(57, 255, 31);
+        color: black;
+    }
     .button-container {
         width: 270px;
+        gap: 20px;
     }
     .digitize {
         width: 90%;
@@ -170,5 +189,11 @@ h3 {
     }
     .slider-container {
         width: 270px;
+    }
+    .download-btn:hover, .share-btn:hover, .save-btn:hover {
+        background: rgb(57, 255, 31);
+    }
+    .download-btn:hover img, .share-btn:hover img, .save-btn:hover img {
+        filter: none;
     }
 }

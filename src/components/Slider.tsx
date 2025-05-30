@@ -4,10 +4,11 @@ interface Props {
     increaseThreshold: (e: any) => void;
     value: number;
     id: number;
+    background: string;
 }
 
-const SliderComponent = ({increaseThreshold, value, id}: Props) => {
-  
+const SliderComponent = ({increaseThreshold, value, id, background}: Props) => {
+
 
   return (
     <>
@@ -19,7 +20,7 @@ const SliderComponent = ({increaseThreshold, value, id}: Props) => {
         max={255}
         value={value}
         onChange={increaseThreshold}
-        style={{ width: "100%"}}
+        style={{ background: background}}
         className='custom-slider'
       />
     </>

@@ -1,0 +1,33 @@
+.popup-share-container {
+    position: absolute;
+    top: -320%;
+    left: 50%;
+}
+.popup-share {
+    display: block;
+    height: fit-content;
+    padding: 0px;
+    background: rgb(57, 255, 31);
+}
+
+.popup-share ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 0px;
+    margin: 0px;
+}
+
+.popup-share ul li {
+    height: 30px;
+    width: 120px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black;
+    color: rgb(57, 255, 31);
+    font-family:Verdana, Geneva, Tahoma, sans-serif;;
+    margin: 0px;
+    font-size: 13px;
+}

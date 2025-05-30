@@ -29,23 +29,22 @@ const Index: React.FC = () => {
       'first': '/index/explosion.jpg',
       'digitized': '/index/processed_image (74).png'
     },
-    // {
-    //   'first': '',
-    //   'digitized': ''
-    // },
-    // {
-    //   'first': '',
-    //   'digitized': ''
-    // },
-    // {
-    //   'first': '',
-    //   'digitized': ''
-    // },
-    // {
-    //   'first': '',
-    //   'digitized': ''
-    // },
+    {
+      'first': '/index/Monalisa.jpg',
+      'digitized': '/index/digitized-monalisa.png'
+    },
+    {
+      'first': '/index/dunk.jpg',
+      'digitized': '/index/digitized-dunk.png'
+    }
   ]
+
+  // useEffect(() => {
+  //   fetch('http://localhost:5000/api/hello')
+  //     .then(res => res.json())
+  //     .then(data => console.log(data.message));
+  // }, []);
+  
 
 
   const navigate = useNavigate()
@@ -63,7 +62,7 @@ const Index: React.FC = () => {
         muted
         playsInline
         >
-        <source src="/public/matrix-background.mp4" type="video/mp4" />
+        <source src="/matrix-background.mp4" type="video/mp4" />
       </video>
     </div>
     <div className='content'>

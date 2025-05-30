@@ -1,11 +1,28 @@
-import React, { useState, useRef  } from "react";
+import React, { useState, useRef, useEffect  } from "react";
 import First from "../components/UploadButton";
 import ImageContainer from '../components/ImageContainer'
 import Preset from "../components/Preset";
 import SliderComponent from "../components/Slider";
+import ToggleButton from "../components/ToggleButton"
 import './home.css'
 import './videobackground.css'
+import { ClipLoader } from "react-spinners";
 
+
+
+
+
+
+function blobToBase64(blob: any) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
+// Usage
 
 
 
@@ -19,9 +36,17 @@ const Home: React.FC = () => {
   const [threshold1, setThreshold1] = useState(120);
   const [threshold2, setThreshold2] = useState(255);
   const [openmenu, setOpenmenu] = useState('close')
+  const [matchBrightness, setMatchBrightness] = useState(false)
+  const [img, setImgData] = useState<Blob | null>(null)
+  const [isSaving, setIsSaving] = useState(false)
+  const [savedURL, setSavedURL] = useState<string>("")
 
 
 
+
+
+
+  //FUNCTION TO UPLOAD USER'S IMAGE FILE FROM LOCAL STORAGE.
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -38,26 +63,24 @@ const Home: React.FC = () => {
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("preset", presetvalue);
+    formData.append("match_brightness", matchBrightness.toString());
     formData.append("threshold", threshold.toString())
     formData.append("threshold1", threshold1.toString())
     formData.append("threshold2", threshold2.toString())
 
     startLoadingAnimation()
 
+    console.log(formData)
+
     try {
-      const response = await fetch("https://arrayverse-arrayverse.hf.space/upload", {
-        headers: {
-            "Authorization": "Bearer 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"
-        },
+      const response = await fetch("http://localhost:3000/upload", {
         method: "POST",
         body: formData
       });
-      console.log(response)
-      // alert("Uploaded: " + response.data.filename + " " + response.data.preset);
-
       const blob = await response.blob();
       const imageUrl = URL.createObjectURL(blob);
       setProcessedImageURL(imageUrl);
+      setImgData(blob)
     } catch (err) {
       console.error(err);
       alert("Upload failed.");
@@ -88,16 +111,81 @@ const Home: React.FC = () => {
 
 
 
+
+  const cloudinaryUpload = async () => {
+    if (!processedImageURL) return;
+    setIsSaving(true)
+    try{
+
+      const base64DataUri = await blobToBase64(img);
+
+
+      await fetch("http://localhost:3000/cloudupload", {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify({ image: base64DataUri })
+
+      }).then(response => response.json())
+      .then(data => {
+        console.log(data.url);
+
+        setSavedURL(data.url)
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+      
+
+    } catch (err) {
+      console.log(err)
+      alert('Failed to save')
+    }
+    setIsSaving(false)
+    
+  }
+
+
+  const share = async () => {
+    if (!img) return;
+
+    const file = new File([img!], 'image.jpeg', { type: img!.type });
+    const shareData = {
+      title: 'Created with Array.',
+      text: 'Check this out!',
+      files: [file],
+    }
+
+    if (navigator.canShare && navigator.canShare(shareData)) {
+      await navigator.share(shareData);
+    } else {
+      cloudinaryUpload()
+      navigator.share({
+        title: 'Created with Array.',
+        text: 'Check this out!',
+        url: savedURL
+      })
+    }
+
+  }
+
+
+
   // FUNCTION TO CHANGE PRESET OR TYPE OF MATRIX EDIT
   // WHILE ACTIVATING THEIR BOX TURNING THE BACKGROUND
   // GREEN
   function changeVal(val: string, idx: number) {
-    console.log(idx)
     setPresetValue(val)
     setActiveIndex(idx)
   }
 
 
+
+
+
+  //FUNCTION TO CHANGE THRESHOLD VALUES
   const changeThreshold = (e: React.ChangeEvent<HTMLInputElement>, val: String) => {
     if (val === '1') {
         setThreshold(Number(e.target.value))
@@ -110,18 +198,25 @@ const Home: React.FC = () => {
   };
 
 
+
+
+
+
+  //FUNCTION TO DOWNLOAD THE PROCESSED IMAGE.
   function downloadImg(url: string) {
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "processed_image.png"); // 💾 File name
+    link.setAttribute("download", "processed_image.jpeg");
     document.body.appendChild(link);
     link.click();
     link.remove();
-
-    // Optionally revoke the object URL to release memory
     window.URL.revokeObjectURL(url);
   }
   
+
+
+
+
 
 
   // CHANGING THE LOADING TEXT UP ABOVE THE IMAGE CONTAINER.
@@ -142,7 +237,7 @@ const Home: React.FC = () => {
   intervalRef.current = setInterval(() => {
       i = (i + 1) % loadingMessages.length;
       setLoadingText(loadingMessages[i]);
-  }, 800); // Change every 800ms
+  }, 800);
   };
 
   const stopLoadingAnimation = () => {
@@ -153,23 +248,50 @@ const Home: React.FC = () => {
   setLoadingText("Upload image");
   };
 
+  const setBrightness = (value: boolean) => {
+    setMatchBrightness(!value)
+  }
   
 
+
+
+
+
+
+
+  //FUNCTION TO SHOW VIDEO BACKGROUND DURING INTERRUPTION
   const [showVideo, setShowVideo] = useState(false);
   const videoRef =  useRef<HTMLVideoElement | null>(null);
 
-  if (videoRef.current) {
-    videoRef.current.play();
-  }
+  useEffect(() => {
+    if (showVideo && videoRef.current) {
+      videoRef.current.play().catch((e) => {
+        console.log('Video play was interrupted or failed:', e);
+      });
+    }
+  }, [showVideo]);
 
-//   const toggleVideo = () => {
-//     // if (showVideo) {
-//     //   videoRef.current.pause();
-//     // } else {
-//     //   videoRef.current.play();
-//     // }
-    
-//   };
+
+
+
+
+
+
+
+  //FUNCTINO TO CLOSE POPUP MENU
+  // const [openpop, setopenpop] = useState(false);
+  // const popupmenuRef = useRef<HTMLDivElement>(null);
+
+
+  // useEffect(() => {
+  //   const handleClickOutside = (e: MouseEvent) => {
+  //     if (popupmenuRef.current && !popupmenuRef.current.contains(e.target as Node)) {
+  //       setopenpop(false);
+  //     }
+  //   };
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => document.removeEventListener('mousedown', handleClickOutside);
+  // }, []);
 
   return (
     <div className='behind'>
@@ -194,6 +316,8 @@ const Home: React.FC = () => {
 
       <div className="app">
         
+        
+
 
         <button className="menu" onClick={() => setOpenmenu('open')}>Presets</button>
         <div className="overlay" onClick={() => setOpenmenu('close')} 
@@ -210,6 +334,7 @@ const Home: React.FC = () => {
                   >{item.name}</p>
               </li>))}
           </ul>
+          <ToggleButton handleToggler={() => setBrightness(matchBrightness)} state={matchBrightness} />
         </Preset>
         <div className="main">
           <h2>{loadingText}</h2>
@@ -235,12 +360,27 @@ const Home: React.FC = () => {
             <div className="download-btn" onClick={() => downloadImg(processedImageURL)}>
               <img src="/direct-download.png" alt="" />
             </div>
+            {/* <div className="save-btn" onClick={() => cloudinaryUpload()}> */}
+              {/* <img src="/direct.png" alt="" /> */}
+            {/* </div> */}
+            <div className="share-btn" onClick={() => share()}>
+              <img src="/share.png" alt="" />
+            </div>
+            {/* <PopupMenu open={openpop} ref={popupmenuRef} /> */}
           </div>
+          
           <div className="slider-container">
-            <SliderComponent id={1} increaseThreshold={(e) => changeThreshold(e, '1')} value={threshold} />
-            <SliderComponent id={2} increaseThreshold={(e) => changeThreshold(e, '2')} value={threshold1} />
-            <SliderComponent id={3} increaseThreshold={(e) => changeThreshold(e, '3')} value={threshold2} />
+            <SliderComponent background='rgb(57, 255, 31)' id={1} increaseThreshold={(value) => changeThreshold(value, '1')} value={threshold} />
+            <SliderComponent background='rgb(0,100,0)' id={2} increaseThreshold={(e) => changeThreshold(e, '2')} value={threshold1} />
+            <SliderComponent background='rgb(0,50,0)' id={3} increaseThreshold={(e) => changeThreshold(e, '3')} value={threshold2} />
           </div>
+          {isSaving && 
+            <div className="saving-container">
+              <ClipLoader color="green" size={30} />
+              <p>SAVING</p>
+            </div>
+          
+          }
           <button id="digitize" className="digitize" onClick={handleUpload}>Digitize</button>
         </div>
       </div>
