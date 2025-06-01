@@ -1,4 +1,5 @@
 import {v2 as cloudinary} from 'cloudinary'
+import {supabase} from '../auth'
 
 cloudinary.config({ 
     cloud_name: 'ddoc87vbi', 

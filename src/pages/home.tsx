@@ -7,8 +7,14 @@ import ToggleButton from "../components/ToggleButton"
 import './home.css'
 import './videobackground.css'
 import { ClipLoader } from "react-spinners";
+// import { useNavigate } from "react-router-dom";
+// import {supabase} from '../auth'
 
 
+
+interface Props {
+  access_token: any;
+}
 
 
 
@@ -26,7 +32,57 @@ function blobToBase64(blob: any) {
 
 
 
-const Home: React.FC = () => {
+const Home = ({access_token}: Props) => {
+
+  // const [session, setSession] = useState(null)
+  // const navigate = useNavigate()
+
+  // useEffect(() => {
+  //   // Check current session on mount
+  //   supabase.auth.getSession().then(({ data: { session } }) => {
+  //     if (!session) {
+  //       navigate('/login') // redirect to login if no session
+  //     } else {
+  //       setSession(session)
+  //     }
+  //   })
+
+  //   // Listen for auth state changes (login/logout)
+  //   const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+  //     if (!session) {
+  //       navigate('/login')
+  //     } else {
+  //       setSession(session)
+  //     }
+  //   })
+
+  //   // Cleanup subscription on unmount
+  //   return () => subscription.unsubscribe()
+  // }, [navigate])
+
+  // if (!session) {
+  //   return <div>Loading...</div>
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const [presetvalue, setPresetValue] = useState("Matrix");
@@ -44,7 +100,7 @@ const Home: React.FC = () => {
 
 
 
-
+  
 
   //FUNCTION TO UPLOAD USER'S IMAGE FILE FROM LOCAL STORAGE.
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -220,7 +276,7 @@ const Home: React.FC = () => {
 
 
   // CHANGING THE LOADING TEXT UP ABOVE THE IMAGE CONTAINER.
-  const intervalRef = useRef<number  | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);;
   const [loadingText, setLoadingText] = useState("Upload image");
 
   const loadingMessages = [
@@ -319,11 +375,11 @@ const Home: React.FC = () => {
         
 
 
-        <button className="menu" onClick={() => setOpenmenu('open')}>Presets</button>
+        <button className="menu" onClick={() => setOpenmenu('open')}>Styles</button>
         <div className="overlay" onClick={() => setOpenmenu('close')} 
         style={{ display: openmenu === 'close' ? 'none' : 'block' }}></div>
         <Preset open={openmenu}>
-          <h3>Choose Preset</h3>
+          <h3>Choose Style</h3>
           <ul>
               {items.map((item, index) => (<li key={index} onClick={() => changeVal(item.name, index)}
                   style={{backgroundColor : activeIndex === index ? "rgb(57, 255, 31)" : "#000000",
