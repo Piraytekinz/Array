@@ -3,6 +3,7 @@ import { useState } from "react";
 import { supabase } from '../auth'
 import { addUserToDatabase } from "../auth";
 import { useNavigate } from "react-router-dom";
+import './login.css'
 
 
 export default function LoginPage({ onAuth }: { onAuth: (e: any) => void }) {
@@ -15,7 +16,7 @@ export default function LoginPage({ onAuth }: { onAuth: (e: any) => void }) {
     if (error) {
         alert(error.message);
     } else {
-        onAuth(data.session);
+        onAuth(data.session?.user.id);
         navigate('/home')
     }
   };
@@ -26,7 +27,7 @@ export default function LoginPage({ onAuth }: { onAuth: (e: any) => void }) {
     if (error) {
         alert(error.message);
     } else {
-        onAuth(data.session)
+        onAuth(data.session?.user.id)
         console.log(data.session)
         addUserToDatabase(data.session)
         navigate('/home')
@@ -56,14 +57,19 @@ export default function LoginPage({ onAuth }: { onAuth: (e: any) => void }) {
   }
 
   return (
-    <div>
-      <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={signUpWithEmail}>Sign Up</button>
-      <button onClick={signInWithEmail}>Sign In</button>
-      <button onClick={passwordReset}>Forgot Password?</button>
-      <button onClick={logout}>Logout</button>
-      <button onClick={signInWithGoogle}>Sign In with Google</button>
+    <div className="login-form">
+        <h2>Log in to the Matrix</h2>
+        <div className="form">
+            <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+            <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+        </div>
+        <div className="login-buttons">
+            <button onClick={signUpWithEmail}>Sign Up</button>
+            <button onClick={signInWithEmail}>Sign In</button>
+            <button onClick={passwordReset}>Forgot Password?</button>
+            <button onClick={logout}>Logout</button>
+            <button onClick={signInWithGoogle}>Sign In with Google</button>
+        </div>
     </div>
   );
 }

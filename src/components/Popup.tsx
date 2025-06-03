@@ -23,10 +23,8 @@ export default function PopupMenu({open, ref}: Props) {
       {open && (
         <div className="popup-share">
           <ul className="p-2">
-            <li className="p-2">X</li>
-            <li className="p-2">Instagram</li>
-            <li className="p-2">SnapChat</li>
-            <li className="p-2">Facebook</li>
+            <li className="p-2">Switch account</li>
+            <li className="p-2">Logout</li>
           </ul>
         </div>
       )}

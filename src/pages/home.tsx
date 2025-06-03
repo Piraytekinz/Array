@@ -7,13 +7,14 @@ import ToggleButton from "../components/ToggleButton"
 import './home.css'
 import './videobackground.css'
 import { ClipLoader } from "react-spinners";
+import PopupMenu from "../components/Popup";
 // import { useNavigate } from "react-router-dom";
 // import {supabase} from '../auth'
 
 
 
 interface Props {
-  access_token: any;
+  uid: any;
 }
 
 
@@ -32,7 +33,7 @@ function blobToBase64(blob: any) {
 
 
 
-const Home = ({access_token}: Props) => {
+const Home = ({uid}: Props) => {
 
   // const [session, setSession] = useState(null)
   // const navigate = useNavigate()
@@ -181,7 +182,7 @@ const Home = ({access_token}: Props) => {
           "Content-Type": "application/json"
         },
         method: "POST",
-        body: JSON.stringify({ image: base64DataUri })
+        body: JSON.stringify({ image: base64DataUri, uid: uid, url: previewUrl })
 
       }).then(response => response.json())
       .then(data => {
@@ -335,19 +336,19 @@ const Home = ({access_token}: Props) => {
 
 
   //FUNCTINO TO CLOSE POPUP MENU
-  // const [openpop, setopenpop] = useState(false);
-  // const popupmenuRef = useRef<HTMLDivElement>(null);
+  const [openpop, setopenpop] = useState(false);
+  const popupmenuRef = useRef<HTMLDivElement>(null);
 
 
-  // useEffect(() => {
-  //   const handleClickOutside = (e: MouseEvent) => {
-  //     if (popupmenuRef.current && !popupmenuRef.current.contains(e.target as Node)) {
-  //       setopenpop(false);
-  //     }
-  //   };
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => document.removeEventListener('mousedown', handleClickOutside);
-  // }, []);
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (popupmenuRef.current && !popupmenuRef.current.contains(e.target as Node)) {
+        setopenpop(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <div className='behind'>
@@ -374,8 +375,12 @@ const Home = ({access_token}: Props) => {
         
         
 
+      <div className="top-bar">
+          <button className="styles" onClick={() => setOpenmenu('open')}>Styles</button>
+          <button className="profile" onClick={() => setopenpop(true)}>A</button>
+          <PopupMenu open={openpop} ref={popupmenuRef} />
+      </div>
 
-        <button className="menu" onClick={() => setOpenmenu('open')}>Styles</button>
         <div className="overlay" onClick={() => setOpenmenu('close')} 
         style={{ display: openmenu === 'close' ? 'none' : 'block' }}></div>
         <Preset open={openmenu}>
@@ -416,13 +421,13 @@ const Home = ({access_token}: Props) => {
             <div className="download-btn" onClick={() => downloadImg(processedImageURL)}>
               <img src="/direct-download.png" alt="" />
             </div>
-            {/* <div className="save-btn" onClick={() => cloudinaryUpload()}> */}
-              {/* <img src="/direct.png" alt="" /> */}
-            {/* </div> */}
+            <div className="save-btn" onClick={() => cloudinaryUpload()}>
+              <img src="/save.png" alt="" />
+            </div>
             <div className="share-btn" onClick={() => share()}>
               <img src="/share.png" alt="" />
             </div>
-            {/* <PopupMenu open={openpop} ref={popupmenuRef} /> */}
+            
           </div>
           
           <div className="slider-container">

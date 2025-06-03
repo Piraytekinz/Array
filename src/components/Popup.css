@@ -1,7 +1,8 @@
 .popup-share-container {
     position: absolute;
-    top: -320%;
-    left: 50%;
+    top: 10%;
+    right: 5%;
+    z-index: 10;
 }
 .popup-share {
     display: block;
@@ -30,4 +31,5 @@
     font-family:Verdana, Geneva, Tahoma, sans-serif;;
     margin: 0px;
     font-size: 13px;
+    cursor: pointer;
 }

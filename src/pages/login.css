@@ -1,0 +1,43 @@
+.login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+}
+
+input[type=email], input[type=password] {
+    height: 40px;
+    border: 1px solid rgb(57, 255, 31);
+    outline: none;
+    background: transparent;
+    color: rgb(57, 255, 31);
+    width: 50%;
+    flex-shrink: 1;
+    display: flex;
+    min-width: 200px;
+    font-size: 14px;
+    /* max-width: 300px; */
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    gap: 10px;
+}
+
+.login-buttons {
+    display: block;
+    padding: 0px;
+}
+
+.login-buttons button {
+    width: fit-content;
+    padding: 10px;
+    margin: 0px;
+    margin-top: 5px;
+}

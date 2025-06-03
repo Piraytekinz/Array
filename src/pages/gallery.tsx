@@ -1,38 +1,117 @@
-import React from 'react'
+import {useState, useEffect} from 'react'
 import './gallery.css'
+import InfiniteScroll from "react-infinite-scroll-component";
+import { supabase } from '../auth';
 
-const Gallery: React.FC = () => {
+const PAGE_SIZE = 10; // how many to load at once
 
-    const images = [
-        {
-          'first': '/index/ship.jpeg',
-          'digitized': '/index/digitized-ship.png'
-        },
-        {
-          'first': '/index/gun.jpg',
-          'digitized': '/index/digitized-gun.png'
-        },
-        {
-          'first': '/index/blackhole.jpg',
-          'digitized': '/index/digitized-blackhole.png'
-        },
-        {
-          'first': '/index/minecraft.jpg',
-          'digitized': '/index/digitized-minecraft.png'
-        },
-      ]
+
+const Gallery = () => {
+
+    // const [imageDetails, openImageDetails] = useState<string | undefined>(undefined)
+    // const [imageDetails1, open] = useState<string | undefined>(undefined)
+
+    // const openImage = (url1: string, url2: string) => {
+    //     openImageDetails(url1)
+    //     open(url2)
+    // }
+
+    const [urls, setUrls] = useState([{id: 'none', url: undefined}]);
+    const [hasMore, setHasMore] = useState(true);
+    const [from, setFrom] = useState(0);
+
+    // Initial load
+    useEffect(() => {
+        fetchUrls(0);
+        // eslint-disable-next-line
+    }, []);
+
+    const fetchUrls = async (start: any) => {
+        const { data, error } = await supabase
+        .from("images")
+        .select("id, url, created_at")
+        .order("created_at", { ascending: false })
+        .range(start, start + PAGE_SIZE - 1);
+
+        if (error) {
+        console.error(error);
+        return;
+        }
+
+        if (data.length < PAGE_SIZE) setHasMore(false);
+
+        setUrls((prev) => [...prev, ...data]);
+        setFrom(start + PAGE_SIZE);
+    };
+
+
+    // const images = [
+    //     {
+    //       'first': '/index/ship.jpeg',
+    //       'digitized': '/index/digitized-ship.png'
+    //     },
+    //     {
+    //       'first': '/index/gun.jpg',
+    //       'digitized': '/index/digitized-gun.png'
+    //     },
+    //     {
+    //       'first': '/index/blackhole.jpg',
+    //       'digitized': '/index/digitized-blackhole.png'
+    //     },
+    //     {
+    //       'first': '/index/minecraft.jpg',
+    //       'digitized': '/index/digitized-minecraft.png'
+    //     },
+    //   ]
+
+    async function downloadImg(url: any) {
+        const response = await fetch(url, { mode: 'cors' });
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
+
+        console.log(blobUrl)
+
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.setAttribute("download", "processed_image.jpeg");
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.URL.revokeObjectURL(url);
+    }
+      
+    
 
   return (
-    <div className='arraverse'>
+    <InfiniteScroll
+      dataLength={urls.length}
+      next={() => fetchUrls(from)}
+      hasMore={true}
+      loader={<h4>Loading...</h4>}
+      endMessage={<p style={{ textAlign: "center" }}>No more Images.</p>}
+      className='neo'
+    >
+        {/* { imageDetails && <div className="full-image">
+            <img src={imageDetails} alt="" />
+            <img src={imageDetails1} alt="" />
+        </div> } */}
         <h2>Welcome to the Arraverse</h2>
         {
-            images.map((name, index) => <div className="image" key={index}>
-            <img src={name['first']} alt="" />
-            <img src={name['digitized']} alt="" />
+            urls &&
+            urls.map((item, index) => <div className="arraverse-image-container" key={index}
+            >
+            <img src={item.url} alt="" />
+            <img src={item.url} alt="" />
+            <div className="download-img" onClick={() => downloadImg(item.url)}>
+                <img src="/download.png" alt="" />
+            </div>
             </div>)
         }
-    </div>
+    </InfiniteScroll>
   )
 }
 
 export default Gallery
+
+// onClick={
+//     () => {openImage(name['first'], name['digitized'])}}

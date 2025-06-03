@@ -29,10 +29,10 @@ function App() {
   usePageTracking();
 
   return (
-    <div>
+    <div className='router-container'>
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/home" element={<Home access_token={sessionData}/>} />
+        <Route path="/home" element={<Home uid={sessionData}/>} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/login" element={<LoginPage onAuth={(e) => (setSessionData(e))} />} />
         <Route path="/resetpassword" element={<ResetPassword />} />

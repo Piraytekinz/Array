@@ -18,7 +18,7 @@ export default async function cloudupload(req, res) {
     try {
         const uploadResult = await cloudinary.uploader
         .upload(
-            req.body.image, {
+            req.body.url, {
                 timeout: 60000,
                 public_id: 'digitized',
             }
@@ -27,6 +27,17 @@ export default async function cloudupload(req, res) {
             console.log(error);
             res.status(500).json({ error: "Server error" });
         });
+
+
+        const { data, error } = await supabase
+        .from('images')
+        .insert([{ user_id: req.body.uid, url: uploadResult['secure_url'], url1: req.body.url }]);
+
+        if (error) {
+        console.error('Insert error:', error);
+        } else {
+        console.log('Insert successful:', data);
+        }
 
 
         console.log("Dayum sonnn!!!!")
