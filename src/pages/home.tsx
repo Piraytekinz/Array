@@ -14,9 +14,9 @@ import { Contexti } from "../components/AppContext";
 
 
 
-interface Props {
-  uid: any;
-}
+// interface Props {
+//   uid: any;
+// }
 
 
 
@@ -34,7 +34,7 @@ function blobToBase64(blob: any) {
 
 
 
-const Home = ({uid}: Props) => {
+const Home = () => {
 
   // const [session, setSession] = useState(null)
   // const navigate = useNavigate()
@@ -80,16 +80,15 @@ const Home = ({uid}: Props) => {
 
 
 
-
   const context = useContext(Contexti)
   if (!context) {
       throw new Error('AppContext must be used within AppProvider');
   }
-  const { selectedFile, setSelectedFile, previewUrl, setPreviewUrl } = context;
+  const { selectedFile, setSelectedFile, previewUrl, setPreviewUrl, uid } = context;
 
 
   
-  
+  const [accountName, setaccountName] = useState("")
   const [presetvalue, setPresetValue] = useState("Matrix");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [processedImageURL, setProcessedImageURL] = useState<string>("");
@@ -102,8 +101,12 @@ const Home = ({uid}: Props) => {
   const [isSaving, setIsSaving] = useState(false)
   const [savedURL, setSavedURL] = useState<string>("")
 
-
-
+  useEffect(() => {
+    console.log(uid)
+    if (uid.app_metadata.provider === 'email' ) {
+      setaccountName(uid.email.charAt(0).toUpperCase())
+    }
+  }, []);
 
   
 
@@ -112,7 +115,8 @@ const Home = ({uid}: Props) => {
     const file = event.target.files?.[0];
     if (file) {
       setSelectedFile(file);
-      setPreviewUrl(URL.createObjectURL(file));
+      let blob = URL.createObjectURL(file)
+      setPreviewUrl(blob);
     }
   };
 
@@ -134,7 +138,7 @@ const Home = ({uid}: Props) => {
     console.log(formData)
 
     try {
-      const response = await fetch("http://localhost:3000/upload", {
+      const response = await fetch("/api/huggingface", {
         method: "POST",
         body: formData
       });
@@ -164,12 +168,12 @@ const Home = ({uid}: Props) => {
       "img": "/tiger-white-inv.png"
     },
     {
-      "name": "Danger",
+      "name": "Code Red",
       "img": "/tiger-red.png"
     },
     {
       "name": "Blend",
-      "img": "/tiger-red.png"
+      "img": "/tiger-blend.jpeg"
     }
   ]
 
@@ -185,12 +189,12 @@ const Home = ({uid}: Props) => {
       const base64DataUri = await blobToBase64(img);
 
 
-      await fetch("http://localhost:3000/cloudupload", {
+      await fetch("/api/cloudupload", {
         headers: {
           "Content-Type": "application/json"
         },
         method: "POST",
-        body: JSON.stringify({ image: base64DataUri, uid: uid, url: previewUrl })
+        body: JSON.stringify({ image: [base64DataUri], uid: uid.id, url: previewUrl })
 
       }).then(response => response.json())
       .then(data => {
@@ -385,7 +389,7 @@ const Home = ({uid}: Props) => {
 
       <div className="top-bar">
           <button className="styles" onClick={() => setOpenmenu('open')}>Styles</button>
-          <button className="profile" onClick={() => setopenpop(true)}>A</button>
+          <button className="profile" onClick={() => setopenpop(true)}>{accountName}</button>
           <PopupMenu open={openpop} ref={popupmenuRef} />
       </div>
 

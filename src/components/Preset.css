@@ -1,3 +1,5 @@
+
+
 .preset-container {
     overflow-y: scroll;
     position: fixed;
@@ -24,14 +26,30 @@ ul {
     margin: 20px;
 }
 
+ul li::before {
+    content: '';
+    border: 1px solid green;
+    height: 101%;
+    width: 101%;
+    position: absolute;
+    bottom:0;
+    top: 1%;
+    left: 1%;
+    z-index: -1;
+}
+
 ul li {
     height: 200px;
     width: fit-content;
-    border: 1px solid green;
+    border: 1px solid rgb(57, 255, 31);
     list-style: none;
     /* margin-top: 10px; */
     max-height: 300px;
+    position: relative;
+    cursor: pointer;
 }
+
+
 
 ul li p {
     color: white;

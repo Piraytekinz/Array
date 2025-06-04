@@ -71,7 +71,7 @@ const Index: React.FC = () => {
       <button onClick={handleNavigate}>Enter the Matrix</button>
     </div>
     <section>
-      <p>Somewhere in Hilbert's space, there's a universe out there made up of only digits. Just like how atoms make up our universe.</p>
+      <p>Somewhere in Hilbert's space, there's a universe made up of only digits. Just like how atoms make up our universe.</p>
       <div className='rest'>
         {
           images.map((name, index) => <div className="image" key={index}>

@@ -1,6 +1,6 @@
 // import React from 'react';
 import { Routes, Route, useLocation, NavLink  } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import ReactGA from 'react-ga4';
 import Home from './pages/home';
 import Index from './pages/Index';
@@ -26,7 +26,6 @@ function usePageTracking() {
 
 
 function App() {
-  const [sessionData, setSessionData] = useState(null)
   usePageTracking();
 
   return (
@@ -35,9 +34,9 @@ function App() {
         <Routes>
 
           <Route path="/" element={<Index />} />
-          <Route path="/home" element={<Home uid={sessionData}/>} />
+          <Route path="/home" element={<Home />} />
           <Route path="/gallery" element={<Gallery />} />
-          <Route path="/login" element={<LoginPage onAuth={(e) => (setSessionData(e))} />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
 
         </Routes>

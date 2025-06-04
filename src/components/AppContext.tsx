@@ -2,7 +2,7 @@
 import React, { createContext, ReactNode, useState } from 'react';
 
 interface Props {
-    children: ReactNode
+    children: ReactNode,
 }
 type AppContextType = {
     uploadedImage: string | null;
@@ -17,6 +17,8 @@ type AppContextType = {
     setSelectedFile: React.Dispatch<React.SetStateAction<null | File>>;
     previewUrl: string | ""
     setPreviewUrl: React.Dispatch<React.SetStateAction<"" | string>>;
+    uid: any;
+    setUID: React.Dispatch<React.SetStateAction<null | any>>;
 }
 
 export const Contexti = createContext<AppContextType | undefined>(undefined);
@@ -29,11 +31,12 @@ export function AppProvider({ children }: Props) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const [hasMore, setHasMore] = useState(true);
+  const [uid, setUID] = useState<any | null>(null)
 
 
   return (
     <Contexti.Provider value={{ uploadedImage, setUploadedImage, urls, setUrls, 
-    from, setFrom, selectedFile, setSelectedFile, previewUrl, setPreviewUrl, hasMore, setHasMore }}>
+    from, setFrom, selectedFile, setSelectedFile, previewUrl, setPreviewUrl, hasMore, setHasMore, uid, setUID }}>
       {children}
     </Contexti.Provider>
   );

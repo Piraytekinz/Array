@@ -1,22 +1,30 @@
 // Auth.tsx
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { supabase } from '../auth'
 import { addUserToDatabase } from "../auth";
 import { useNavigate } from "react-router-dom";
 import './login.css'
+import { Contexti } from "../components/AppContext";
 
 
-export default function LoginPage({ onAuth }: { onAuth: (e: any) => void }) {
+export default function LoginPage({ onAuth }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
+  const context = useContext(Contexti);
+    if (!context) {
+        throw new Error('AppContext must be used within AppProvider');
+    }
+    const { setUID } = context;
 
   const signInWithEmail = async () => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
         alert(error.message);
     } else {
-        onAuth(data.session?.user.id);
+        console.log(data.session)
+        onAuth(data.session?.user);
+        setUID(data.session?.user)
         navigate('/home')
     }
   };
@@ -27,9 +35,10 @@ export default function LoginPage({ onAuth }: { onAuth: (e: any) => void }) {
     if (error) {
         alert(error.message);
     } else {
-        onAuth(data.session?.user.id)
+        onAuth(data.session?.user)
         console.log(data.session)
         addUserToDatabase(data.session)
+        setUID(data.session?.user)
         navigate('/home')
     }
   };

@@ -6,12 +6,14 @@ const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY; // secret 
 export const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
 
 
-export async function addUserToDatabase() {
+export default async function addUserToDatabase() {
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
     throw new Error('User not authenticated');
     }
+
+    console.log(user)
 
     const userId = user.id; // This is auth.uid
 
@@ -19,7 +21,7 @@ export async function addUserToDatabase() {
 
     const { error } = await supabase
     .from('users')
-    .insert([{ id: userId, username: 'alice' }]);
+    .insert([{ id: userId, username: 'Neo' }]);
 
     if (error) {
     console.error('Error inserting user:', error.message);

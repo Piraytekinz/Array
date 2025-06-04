@@ -1,3 +1,7 @@
+@font-face {
+    font-family: codered;
+    src: url('/public/fonts/codered.ttf');
+}
 
 
 .app {
