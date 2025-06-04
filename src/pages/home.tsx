@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect  } from "react";
+import React, { useState, useRef, useEffect, useContext  } from "react";
 import First from "../components/UploadButton";
 import ImageContainer from '../components/ImageContainer'
 import Preset from "../components/Preset";
@@ -8,6 +8,7 @@ import './home.css'
 import './videobackground.css'
 import { ClipLoader } from "react-spinners";
 import PopupMenu from "../components/Popup";
+import { Contexti } from "../components/AppContext";
 // import { useNavigate } from "react-router-dom";
 // import {supabase} from '../auth'
 
@@ -80,12 +81,15 @@ const Home = ({uid}: Props) => {
 
 
 
+  const context = useContext(Contexti)
+  if (!context) {
+      throw new Error('AppContext must be used within AppProvider');
+  }
+  const { selectedFile, setSelectedFile, previewUrl, setPreviewUrl } = context;
 
 
-
-
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string>("");
+  
+  
   const [presetvalue, setPresetValue] = useState("Matrix");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [processedImageURL, setProcessedImageURL] = useState<string>("");
@@ -161,6 +165,10 @@ const Home = ({uid}: Props) => {
     },
     {
       "name": "Danger",
+      "img": "/tiger-red.png"
+    },
+    {
+      "name": "Blend",
       "img": "/tiger-red.png"
     }
   ]

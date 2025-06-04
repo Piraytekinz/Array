@@ -1,4 +1,6 @@
 import './Popup.css'
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '../auth';
 
 interface Props {
     open: boolean;
@@ -8,8 +10,16 @@ interface Props {
 
 export default function PopupMenu({open, ref}: Props) {
 
-  // Close menu when clicking outside
-  
+    const navigator = useNavigate()
+
+    const logout = async () => {
+        const { error } = await supabase.auth.signOut({ scope: 'local' });
+        if (error) {
+            alert (error.message)
+            return
+        }
+        navigator('/login')
+    }
 
   return (
     <div className="popup-share-container" ref={ref}>
@@ -23,8 +33,8 @@ export default function PopupMenu({open, ref}: Props) {
       {open && (
         <div className="popup-share">
           <ul className="p-2">
-            <li className="p-2">Switch account</li>
-            <li className="p-2">Logout</li>
+            <li className="p-2" onClick={() => navigator("/login")}>Switch account</li>
+            <li className="p-2" onClick={() => logout()}>Logout</li>
           </ul>
         </div>
       )}

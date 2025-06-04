@@ -8,6 +8,7 @@ import './App.css'
 import Gallery from './pages/gallery';
 import LoginPage from './pages/login'
 import ResetPassword from './pages/passwordReset';
+import {AppProvider} from './components/AppContext';
 
 
 
@@ -29,42 +30,45 @@ function App() {
   usePageTracking();
 
   return (
-    <div className='router-container'>
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/home" element={<Home uid={sessionData}/>} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/login" element={<LoginPage onAuth={(e) => (setSessionData(e))} />} />
-        <Route path="/resetpassword" element={<ResetPassword />} />
-      </Routes>
-      <nav>
-        <NavLink 
-          to="/" 
-          className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
-        >
-          Home
-        </NavLink>
-        <NavLink 
-          to='/home'
-          className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
-        >
-          Matrix
-        </NavLink>
-        <NavLink 
-          to="/gallery" 
-          className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
-        >
-          Gallery
-        </NavLink>
-        <NavLink 
-          to="/login" 
-          className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
-        >
-          Login
-        </NavLink>
-      </nav>
-    </div>
-    
+    <AppProvider>
+      <div className='router-container'>
+        <Routes>
+
+          <Route path="/" element={<Index />} />
+          <Route path="/home" element={<Home uid={sessionData}/>} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/login" element={<LoginPage onAuth={(e) => (setSessionData(e))} />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
+
+        </Routes>
+        <nav>
+          <NavLink 
+            to="/" 
+            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+          >
+            Home
+          </NavLink>
+          <NavLink 
+            to='/home'
+            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+          >
+            Matrix
+          </NavLink>
+          <NavLink 
+            to="/gallery" 
+            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+          >
+            Gallery
+          </NavLink>
+          <NavLink 
+            to="/login" 
+            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+          >
+            Login
+          </NavLink>
+        </nav>
+      </div>
+    </AppProvider>
   );
 }
 

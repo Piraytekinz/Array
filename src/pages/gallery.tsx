@@ -1,9 +1,11 @@
-import {useState, useEffect} from 'react'
+import {useEffect} from 'react'
 import './gallery.css'
 import InfiniteScroll from "react-infinite-scroll-component";
 import { supabase } from '../auth';
+import { Contexti } from '../components/AppContext'
+import { useContext } from 'react';
 
-const PAGE_SIZE = 10; // how many to load at once
+const PAGE_SIZE = 3; // how many to load at once
 
 
 const Gallery = () => {
@@ -16,13 +18,18 @@ const Gallery = () => {
     //     open(url2)
     // }
 
-    const [urls, setUrls] = useState([{id: 'none', url: undefined}]);
-    const [hasMore, setHasMore] = useState(true);
-    const [from, setFrom] = useState(0);
+    const context = useContext(Contexti);
+    if (!context) {
+        throw new Error('AppContext must be used within AppProvider');
+    }
+    const { urls, setUrls, from, setFrom, hasMore, setHasMore } = context;
+
+
 
     // Initial load
     useEffect(() => {
-        fetchUrls(0);
+        console.log('using effect like a pro')
+        fetchUrls(from);
         // eslint-disable-next-line
     }, []);
 
@@ -38,7 +45,11 @@ const Gallery = () => {
         return;
         }
 
-        if (data.length < PAGE_SIZE) setHasMore(false);
+        console.log("data:", data)
+
+        if (data.length < PAGE_SIZE) {
+            setHasMore(false);
+        }
 
         setUrls((prev) => [...prev, ...data]);
         setFrom(start + PAGE_SIZE);
@@ -86,7 +97,7 @@ const Gallery = () => {
     <InfiniteScroll
       dataLength={urls.length}
       next={() => fetchUrls(from)}
-      hasMore={true}
+      hasMore={hasMore}
       loader={<h4>Loading...</h4>}
       endMessage={<p style={{ textAlign: "center" }}>No more Images.</p>}
       className='neo'
