@@ -9,8 +9,11 @@ import './videobackground.css'
 import { ClipLoader } from "react-spinners";
 import PopupMenu from "../components/Popup";
 import { Contexti } from "../components/AppContext";
+import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
-// import {supabase} from '../auth'
+import {supabase} from '../auth'
+import { addUserToDatabase } from "../auth";
+
 
 
 
@@ -30,93 +33,115 @@ function blobToBase64(blob: any) {
   });
 }
 
+function inputImageToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const base64String = reader.result as string;
+      resolve(base64String);
+    };
+
+    reader.onerror = reject;
+
+    reader.readAsDataURL(file);
+  });
+}
+
+
 // Usage
 
 
 
 const Home = () => {
 
-  // const [session, setSession] = useState(null)
-  // const navigate = useNavigate()
-
-  // useEffect(() => {
-  //   // Check current session on mount
-  //   supabase.auth.getSession().then(({ data: { session } }) => {
-  //     if (!session) {
-  //       navigate('/login') // redirect to login if no session
-  //     } else {
-  //       setSession(session)
-  //     }
-  //   })
-
-  //   // Listen for auth state changes (login/logout)
-  //   const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-  //     if (!session) {
-  //       navigate('/login')
-  //     } else {
-  //       setSession(session)
-  //     }
-  //   })
-
-  //   // Cleanup subscription on unmount
-  //   return () => subscription.unsubscribe()
-  // }, [navigate])
-
-  // if (!session) {
-  //   return <div>Loading...</div>
-  // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const context = useContext(Contexti)
   if (!context) {
       throw new Error('AppContext must be used within AppProvider');
   }
-  const { selectedFile, setSelectedFile, previewUrl, setPreviewUrl, uid } = context;
+  
+
+  const { selectedFile, setSelectedFile, previewUrl, setPreviewUrl, uid, setUID, activeIndex, setActiveIndex,
+    matchBrightness, setMatchBrightness } = context;
+  const navigate = useNavigate()
+  
+
+  async function initialize() {
+
+    const { data: { session } } = await supabase.auth.getSession();
+
+    if (session) {
+      const user = session.user;
+      const user_id = session.user.id
+      console.log(session.user.user_metadata.avatar_url)
+      addUserToDatabase(session)
+      setUID(user_id)
+      
+      if (user.app_metadata.provider === 'email' ) {
+        if (user.email) {
+          setaccountName(user.email.charAt(0).toUpperCase())
+        }
+      } else {
+        console.log("User's url", user.user_metadata.avatar_url)
+        setaccountName(user.user_metadata.picture)
+      }
+    } else {
+      console.log(
+        'NO ACTIVE SESSION LOCATEED!!!!'
+      )
+      navigate('/login')
+      return
+    }
+
+  }
+
+  useEffect(() => {
+    initialize()
+  },[])
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   
+  
+  
   const [accountName, setaccountName] = useState("")
   const [presetvalue, setPresetValue] = useState("Matrix");
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [processedImageURL, setProcessedImageURL] = useState<string>("");
   const [threshold, setThreshold] = useState(210);
   const [threshold1, setThreshold1] = useState(120);
   const [threshold2, setThreshold2] = useState(255);
   const [openmenu, setOpenmenu] = useState('close')
-  const [matchBrightness, setMatchBrightness] = useState(false)
   const [img, setImgData] = useState<Blob | null>(null)
   const [isSaving, setIsSaving] = useState(false)
   const [savedURL, setSavedURL] = useState<string>("")
-
-  useEffect(() => {
-    console.log(uid)
-    if (uid.app_metadata.provider === 'email' ) {
-      setaccountName(uid.email.charAt(0).toUpperCase())
-    }
-  }, []);
+  const [inputImage, setInputImage] = useState<any | null>(null)
+  const [fullScreenImage, setFullscreenImage] = useState(false)
 
   
 
   //FUNCTION TO UPLOAD USER'S IMAGE FILE FROM LOCAL STORAGE.
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setSelectedFile(file);
       let blob = URL.createObjectURL(file)
       setPreviewUrl(blob);
+      const base64 = await inputImageToBase64(file);
+      setInputImage(base64);
     }
   };
 
@@ -135,10 +160,9 @@ const Home = () => {
 
     startLoadingAnimation()
 
-    console.log(formData)
 
     try {
-      const response = await fetch("/api/huggingface", {
+      const response = await fetch("http://localhost:3000/upload", {
         method: "POST",
         body: formData
       });
@@ -188,13 +212,12 @@ const Home = () => {
 
       const base64DataUri = await blobToBase64(img);
 
-
       await fetch("/api/cloudupload", {
         headers: {
           "Content-Type": "application/json"
         },
         method: "POST",
-        body: JSON.stringify({ image: [base64DataUri], uid: uid.id, url: previewUrl })
+        body: JSON.stringify({ image: [base64DataUri, inputImage], uid: uid, url: previewUrl })
 
       }).then(response => response.json())
       .then(data => {
@@ -387,11 +410,21 @@ const Home = () => {
         
         
 
-      <div className="top-bar">
-          <button className="styles" onClick={() => setOpenmenu('open')}>Styles</button>
-          <button className="profile" onClick={() => setopenpop(true)}>{accountName}</button>
-          <PopupMenu open={openpop} ref={popupmenuRef} />
-      </div>
+        <div className="top-bar">
+            <button className="styles" onClick={() => setOpenmenu('open')}>Styles</button>
+            <div className="profile" onClick={() => setopenpop(true)}>{
+            accountName.length === 1 ? accountName : <img src={accountName} alt="" />
+            }</div>
+            <PopupMenu open={openpop} ref={popupmenuRef} />
+        </div>
+
+        {
+          fullScreenImage &&
+          <div className="image-overlay">
+            <button onClick={() => setFullscreenImage(false)}>Close</button>
+            <img src="" alt="" />
+          </div>
+        }
 
         <div className="overlay" onClick={() => setOpenmenu('close')} 
         style={{ display: openmenu === 'close' ? 'none' : 'block' }}></div>
@@ -421,7 +454,7 @@ const Home = () => {
                       <video src={previewUrl} width={300} controls />
                   )
               )} */}
-              {processedImageURL && (<img src={processedImageURL} alt="Preview" width={300} />)}
+              {processedImageURL && (<img onClick={() => setFullscreenImage(true)} src={processedImageURL} alt="Preview" width={300} />)}
           </ImageContainer>
               
           
@@ -450,7 +483,7 @@ const Home = () => {
           {isSaving && 
             <div className="saving-container">
               <ClipLoader color="green" size={30} />
-              <p>SAVING</p>
+              <p>Saving to the Arraverse</p>
             </div>
           
           }

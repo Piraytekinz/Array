@@ -13,6 +13,7 @@ export default function PopupMenu({open, ref}: Props) {
     const navigator = useNavigate()
 
     const logout = async () => {
+        console.log('LOGGING OUTTA HERE!')
         const { error } = await supabase.auth.signOut({ scope: 'local' });
         if (error) {
             alert (error.message)

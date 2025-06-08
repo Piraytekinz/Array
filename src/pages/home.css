@@ -1,7 +1,4 @@
-@font-face {
-    font-family: codered;
-    src: url('/public/fonts/codered.ttf');
-}
+
 
 
 .app {
@@ -66,6 +63,15 @@
     justify-content: center;
     align-items: center;
     display: flex;
+    margin: 20px;
+    background: rgb(57, 255, 31);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.profile img {
+    height: 90%;
+    width: 90%;
 }
 
 h2 {
@@ -187,6 +193,34 @@ h3 {
     color: rgb(57, 255, 31);
     letter-spacing: 1px;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.image-overlay {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background: black;
+    height: 100%;
+    width: 100%;
+    top: 0%;
+    z-index: 100
+}
+
+.image-overlay p {
+    color: rgb(57, 255, 31);
+}
+.image-overlay button {
+    height: 50px;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image-overlay img {
+    height: 80%;
+    width: 90%;
+    display: flex;
+    align-self: center;
 }
 
 @media (max-width: 600px) {

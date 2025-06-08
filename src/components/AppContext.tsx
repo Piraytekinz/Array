@@ -19,6 +19,10 @@ type AppContextType = {
     setPreviewUrl: React.Dispatch<React.SetStateAction<"" | string>>;
     uid: any;
     setUID: React.Dispatch<React.SetStateAction<null | any>>;
+    activeIndex: number;
+    setActiveIndex: React.Dispatch<React.SetStateAction<0 | number>>;
+    matchBrightness: boolean;
+    setMatchBrightness: React.Dispatch<React.SetStateAction<false | boolean>>;
 }
 
 export const Contexti = createContext<AppContextType | undefined>(undefined);
@@ -32,11 +36,16 @@ export function AppProvider({ children }: Props) {
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const [hasMore, setHasMore] = useState(true);
   const [uid, setUID] = useState<any | null>(null)
+  const [activeIndex, setActiveIndex] = useState<number | 0>(0);
+  const [matchBrightness, setMatchBrightness] = useState(false)
+  
+  
 
 
   return (
     <Contexti.Provider value={{ uploadedImage, setUploadedImage, urls, setUrls, 
-    from, setFrom, selectedFile, setSelectedFile, previewUrl, setPreviewUrl, hasMore, setHasMore, uid, setUID }}>
+    from, setFrom, selectedFile, setSelectedFile, previewUrl, setPreviewUrl, hasMore, setHasMore, 
+    uid, setUID, activeIndex, setActiveIndex, matchBrightness, setMatchBrightness }}>
       {children}
     </Contexti.Provider>
   );

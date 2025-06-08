@@ -1,32 +1,33 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.VITE_SUPABASE_URL;
+const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY; // secret key for backend
 
 export const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
 
 
-export default async function addUserToDatabase() {
-    const { data: { user } } = await supabase.auth.getUser();
+export default async function addUserToDatabase(req, res) {
+    const user = req.body.uid
 
     if (!user) {
     throw new Error('User not authenticated');
     }
 
-    console.log(user)
-
-    const userId = user.id; // This is auth.uid
+    const userId = user.user.id; // This is auth.uid
+    const idx = user.user.email.indexOf('@')
 
     console.log("This is the user's id", userId)
 
     const { error } = await supabase
     .from('users')
-    .insert([{ id: userId, username: 'Neo' }]);
+    .insert([{ id: userId, username: user.user.email.slice(0, idx) }]);
 
     if (error) {
-    console.error('Error inserting user:', error.message);
+        console.error('Error inserting user:', error.message);
+        res.status(500).json({ error: error.message });
     } else {
-    console.log('User inserted with matching auth.uid');
+        console.log('User inserted with matching auth.uid');
+        res.status(200).json({state: "User inserted with matching auth.uid!!!"});
     }
 
 }
