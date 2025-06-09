@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../auth'; // your initialized supabase client
+import './passwordReset.css'
 
 export default function ResetPassword() {
   const [message, setMessage] = useState('');
@@ -43,12 +44,12 @@ export default function ResetPassword() {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: 'auto', padding: 20 }}>
-      <h2>Reset Your Password</h2>
-      {message && <p>{message}</p>}
+    <div className='reset-container'>
+      <h2 className='reset-header'>Reset Your Password</h2>
+      {message && <p className='reset-message'>{message}</p>}
 
       {showForm && (
-        <form onSubmit={handlePasswordUpdate}>
+        <form onSubmit={handlePasswordUpdate} className='reset-form'>
           <input
             type="password"
             placeholder="New password"
@@ -56,16 +57,15 @@ export default function ResetPassword() {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={6}
-            style={{ width: '100%', padding: 8, marginBottom: 10 }}
           />
-          <button type="submit" disabled={loading} style={{ width: '100%', padding: 10 }}>
+          <button type="submit" disabled={loading}>
             {loading ? 'Updating...' : 'Update Password'}
           </button>
         </form>
       )}
 
       {!showForm && !message && (
-        <p>
+        <p className='reset-message'>
           Please click the password reset link sent to your email to start the password recovery process.
         </p>
       )}

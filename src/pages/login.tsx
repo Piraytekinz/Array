@@ -11,6 +11,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("")
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const context = useContext(Contexti);
     if (!context) {
@@ -19,35 +20,38 @@ export default function LoginPage() {
     // const { setUID } = context;
 
   const signInWithEmail = async () => {
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    setLoading(true)
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
         setMessage(error.message)
+        setLoading(false)
     } else {
-        console.log(data.session)
         // onAuth(data.session?.user)
         // setUID(data.session?.user)
+        setLoading(false)
         navigate('/home')
     }
   };
 
   const signUpWithEmail = async () => {
     console.log("signupclicked!")
-    const { data, error } = await supabase.auth.signUp({ email, password, options: {
+    setLoading(true)
+    const { error } = await supabase.auth.signUp({ email, password, options: {
         emailRedirectTo: `${window.location.origin}/home`
       } });
     if (error) {
         setMessage(error.message)
-    } else {
         // onAuth(data.session?.user)
-        console.log(data.session)
         // addUserToDatabase(data.session)
         // setUID(data.session?.user)
         // navigate('/home')
     }
+    setLoading(false)
   };
 
   const signInWithMagicLink = async () => {
-    const { data, error } = await supabase.auth.signInWithOtp({
+    setLoading(true)
+    const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
         emailRedirectTo: `${window.location.origin}/home`
@@ -57,16 +61,18 @@ export default function LoginPage() {
     if (error) {
         setMessage(error.message)
     } else {
-        console.log(data.session)
         setMessage("Magic Link sent to your inbox. Check in spam if not located.")
     }
+    setLoading(false)
   };
 
   const signInWithGoogle = async () => {
+    setLoading(true)
     const { error } = await supabase.auth.signInWithOAuth({ provider: "google", options: {
         redirectTo: `${window.location.origin}/home`
       }});
     if (error) setMessage(error.message);
+    setLoading(false)
   };
 
   const passwordReset = async () => {
@@ -92,7 +98,7 @@ export default function LoginPage() {
     <div className="login-form">
         <h2 className="log-in-message">Log in to the Matrix</h2>
         {
-            message && <p className='auth-message'>{message}</p>
+            loading !== true ? message && <p className='auth-message'>{message}</p> : <p className="auth-message">loading...</p>
         }
         <div className="form">
             <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />

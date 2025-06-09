@@ -5,7 +5,7 @@
 }
 @font-face {
     font-family: jd;
-    src: url('/public/fonts/codex.ttf');
+    src: url('/fonts/codex.ttf');
 }
 
 div.main-container {
@@ -93,6 +93,31 @@ section p {
     margin: 0px;
 }
 
+footer {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+footer p {
+    display: flex;
+    color: rgb(57, 255, 31);
+}
+
+footer button {
+    width: fit-content;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin: 5px;
+}
+
 @media (max-width: 600px) {
     .image {
         display: block;
@@ -115,6 +140,10 @@ section p {
 
     section p {
         font-size: 18px;
+    }
+    footer p {
+        width: 60%;
+        flex-grow: 1;
     }
 }
 

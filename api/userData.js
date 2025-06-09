@@ -17,6 +17,18 @@ export default async function addUserToDatabase(req, res) {
     const idx = user.user.email.indexOf('@')
 
     console.log("This is the user's id", userId)
+    let { data } = await supabase
+    .from('users')
+    .select('id')
+    .eq('email', user.user.email);
+
+    if (!data || data.length === 0) {
+        console.log("User exists man!!!!!!!!!!!!")
+        res.status(200).json({state: "User exists man!!!!!!!!!!!!"});
+        return
+    } else {
+        console.log('USER DOES NOT EXIST!!')
+    }
 
     const { error } = await supabase
     .from('users')

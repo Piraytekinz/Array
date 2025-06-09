@@ -9,6 +9,8 @@ import Gallery from './pages/gallery';
 import LoginPage from './pages/login'
 import ResetPassword from './pages/passwordReset';
 import {AppProvider} from './components/AppContext';
+import Privacy from './pages/privacy';
+import Terms from './pages/terms';
 
 
 
@@ -38,6 +40,8 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
 
         </Routes>
         <nav>

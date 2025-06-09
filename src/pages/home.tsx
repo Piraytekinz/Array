@@ -129,7 +129,7 @@ const Home = () => {
   const [isSaving, setIsSaving] = useState(false)
   const [savedURL, setSavedURL] = useState<string>("")
   const [inputImage, setInputImage] = useState<any | null>(null)
-  const [fullScreenImage, setFullscreenImage] = useState(false)
+  // const [fullScreenImage, setFullscreenImage] = useState(false)
 
   
 
@@ -162,7 +162,7 @@ const Home = () => {
 
 
     try {
-      const response = await fetch("http://localhost:3000/upload", {
+      const response = await fetch("/api/huggingface", {
         method: "POST",
         body: formData
       });
@@ -418,13 +418,13 @@ const Home = () => {
             <PopupMenu open={openpop} ref={popupmenuRef} />
         </div>
 
-        {
+        {/* {
           fullScreenImage &&
           <div className="image-overlay">
             <button onClick={() => setFullscreenImage(false)}>Close</button>
-            <img src="" alt="" />
+            <img src={processedImageURL} alt="" />
           </div>
-        }
+        } */}
 
         <div className="overlay" onClick={() => setOpenmenu('close')} 
         style={{ display: openmenu === 'close' ? 'none' : 'block' }}></div>
@@ -454,7 +454,7 @@ const Home = () => {
                       <video src={previewUrl} width={300} controls />
                   )
               )} */}
-              {processedImageURL && (<img onClick={() => setFullscreenImage(true)} src={processedImageURL} alt="Preview" width={300} />)}
+              {processedImageURL && (<img src={processedImageURL} alt="Preview" width={300} />)}
           </ImageContainer>
               
           
