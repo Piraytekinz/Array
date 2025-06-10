@@ -11,7 +11,6 @@ import ResetPassword from './pages/passwordReset';
 import {AppProvider} from './components/AppContext';
 import Privacy from './pages/privacy';
 import Terms from './pages/terms';
-import Loading from './pages/loading';
 
 
 
@@ -45,7 +44,6 @@ function App() {
           <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
-          <Route path="/loading" element={<Loading />} />
 
         </Routes>
         <nav>

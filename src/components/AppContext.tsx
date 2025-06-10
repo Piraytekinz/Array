@@ -23,8 +23,6 @@ type AppContextType = {
     setActiveIndex: React.Dispatch<React.SetStateAction<0 | number>>;
     matchBrightness: boolean;
     setMatchBrightness: React.Dispatch<React.SetStateAction<false | boolean>>;
-    isLoading: boolean | true;
-    setisLoading: React.Dispatch<React.SetStateAction<true | boolean>>;
     isSession: boolean | false;
     setisSession: React.Dispatch<React.SetStateAction<false | boolean>>;
 
@@ -43,7 +41,6 @@ export function AppProvider({ children }: Props) {
   const [uid, setUID] = useState<any | null>(null)
   const [activeIndex, setActiveIndex] = useState<number | 0>(0);
   const [matchBrightness, setMatchBrightness] = useState(false)
-  const [isLoading, setisLoading] = useState(true)
   const [isSession, setisSession] = useState(false)
   
   
@@ -52,7 +49,7 @@ export function AppProvider({ children }: Props) {
   return (
     <Contexti.Provider value={{ uploadedImage, setUploadedImage, urls, setUrls, 
     from, setFrom, selectedFile, setSelectedFile, previewUrl, setPreviewUrl, hasMore, setHasMore, 
-    uid, setUID, activeIndex, setActiveIndex, matchBrightness, setMatchBrightness, isLoading, setisLoading,
+    uid, setUID, activeIndex, setActiveIndex, matchBrightness, setMatchBrightness,
     isSession, setisSession }}>
       {children}
     </Contexti.Provider>
