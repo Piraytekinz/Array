@@ -1,6 +1,8 @@
 import React from 'react';
 import './Index.css'
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { Contexti } from '../components/AppContext';
 
 const Index: React.FC = () => {
 
@@ -47,9 +49,19 @@ const Index: React.FC = () => {
   
 
 
+  const context = useContext(Contexti)
+    if (!context) {
+        throw new Error('AppContext must be used within AppProvider');
+    }
+    
+
+    const { setisLoading } = context;
+
+
   const navigate = useNavigate()
 
   function handleNavigate() {
+    setisLoading(true)
     navigate('/home')
   }
 

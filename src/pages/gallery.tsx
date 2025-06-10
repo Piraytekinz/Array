@@ -111,7 +111,7 @@ const Gallery = () => {
             <img src={imageDetails} alt="" />
             <img src={imageDetails1} alt="" />
         </div> } */}
-        <h2>Welcome to the Arraverse</h2>
+        <h2>Welcome to the <b>Arraverse</b></h2>
         
         {
             urls &&

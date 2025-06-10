@@ -6,3 +6,17 @@
     color: rgb(57, 255, 31);
     font-family: monospace;
 }
+
+.privacy-content {
+    color: rgb(57, 255, 31);
+}
+
+.privacy-lists {
+    list-style: lower-greek;
+    margin: 10px;
+}
+.privacy-lists li {
+    color: rgb(57, 255, 31);
+    font-family: monospace;
+    margin: 15px;
+}

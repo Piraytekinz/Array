@@ -1,5 +1,5 @@
 // import React from 'react';
-import { Routes, Route, useLocation, NavLink  } from 'react-router-dom';
+import { Routes, Route, useLocation, NavLink } from 'react-router-dom';
 import { useEffect } from 'react';
 import ReactGA from 'react-ga4';
 import Home from './pages/home';
@@ -11,24 +11,27 @@ import ResetPassword from './pages/passwordReset';
 import {AppProvider} from './components/AppContext';
 import Privacy from './pages/privacy';
 import Terms from './pages/terms';
-
+import Loading from './pages/loading';
 
 
 
 function usePageTracking() {
   const location = useLocation();
   
+  
 
   useEffect(() => {
-    if (location.pathname === '/home') {
-      ReactGA.send({ hitType: 'pageview', page: location.pathname });
-    }
-  }, [location]);
+      if (location.pathname === '/home') {
+        ReactGA.send({ hitType: 'pageview', page: location.pathname });
+      }
+      
+    }, [location]);
 }
 
 
 function App() {
   usePageTracking();
+  
 
   return (
     <AppProvider>
@@ -42,6 +45,7 @@ function App() {
           <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/loading" element={<Loading />} />
 
         </Routes>
         <nav>
@@ -51,7 +55,7 @@ function App() {
           >
             Home
           </NavLink>
-          <NavLink 
+          <NavLink
             to='/home'
             className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
           >

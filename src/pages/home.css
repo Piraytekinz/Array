@@ -117,12 +117,6 @@ button {
     margin: 0px;
 }
 
-button:hover {
-    background: none;
-    color: rgb(57, 255, 31);
-}
-
-
 
 
 
@@ -223,11 +217,14 @@ h3 {
     align-self: center;
 }
 
-@media (max-width: 600px) {
+@media (min-width: 900px) {
     button:hover {
-        background: rgb(57, 255, 31);
-        color: black;
+        background: none;
+        color: rgb(57, 255, 31);
     }
+}
+
+@media (max-width: 600px) {
     .button-container {
         width: 270px;
         gap: 20px;

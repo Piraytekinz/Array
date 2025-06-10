@@ -26,7 +26,7 @@ ul {
     margin: 20px;
 }
 
-ul li::before {
+ul .preset-item::before {
     content: '';
     border: 1px solid green;
     height: 101%;
@@ -38,7 +38,7 @@ ul li::before {
     z-index: -1;
 }
 
-ul li {
+ul .preset-item {
     height: 200px;
     width: fit-content;
     border: 1px solid rgb(57, 255, 31);
@@ -51,12 +51,12 @@ ul li {
 
 
 
-ul li p {
+ul .preset-item p {
     color: white;
     margin-left: 10px;
 }
 
-ul li img {
+ul .preset-item img {
     max-height: 90%;
     max-width: 100%;
     width: auto;

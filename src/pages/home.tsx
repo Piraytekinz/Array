@@ -54,50 +54,60 @@ function inputImageToBase64(file: File): Promise<string> {
 
 
 const Home = () => {
+  
 
   const context = useContext(Contexti)
   if (!context) {
       throw new Error('AppContext must be used within AppProvider');
   }
   
+  const [isLoading, setIsLoading] = useState(true);
 
   const { selectedFile, setSelectedFile, previewUrl, setPreviewUrl, uid, setUID, activeIndex, setActiveIndex,
-    matchBrightness, setMatchBrightness } = context;
-  const navigate = useNavigate()
+    matchBrightness, setMatchBrightness} = context;
+
+    const navigate = useNavigate()
   
 
   async function initialize() {
+    try {
 
-    const { data: { session } } = await supabase.auth.getSession();
 
-    if (session) {
-      const user = session.user;
-      const user_id = session.user.id
-      console.log(session.user.user_metadata.avatar_url)
-      addUserToDatabase(session)
-      setUID(user_id)
-      
-      if (user.app_metadata.provider === 'email' ) {
-        if (user.email) {
-          setaccountName(user.email.charAt(0).toUpperCase())
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (session) {
+        const user = session.user;
+        const user_id = session.user.id
+        console.log(session.user.user_metadata.avatar_url)
+        addUserToDatabase(session)
+        setUID(user_id)
+        
+        if (user.app_metadata.provider === 'email' ) {
+          if (user.email) {
+            setaccountName(user.email.charAt(0).toUpperCase())
+          }
+        } else {
+          console.log("User's url", user.user_metadata.avatar_url)
+          setaccountName(user.user_metadata.picture)
         }
+        console.log('ACTIVE SESSSION LOCATED DAMMMIT!!!S')
       } else {
-        console.log("User's url", user.user_metadata.avatar_url)
-        setaccountName(user.user_metadata.picture)
+        console.log('NO ACTIVE SESSION LOCATED!!')
+        navigate('/login')
       }
-    } else {
-      console.log(
-        'NO ACTIVE SESSION LOCATEED!!!!'
-      )
-      navigate('/login')
-      return
+    } catch(error) {
+      console.log(error)
+      console.log('AN ERROR OCCURRED!!!!!!!!!!!')
+      navigate('/')
     }
-
+    setIsLoading(false)
+    console.log(isLoading)
   }
-
+  
   useEffect(() => {
     initialize()
   },[])
+  
   
   
 
@@ -130,6 +140,10 @@ const Home = () => {
   const [savedURL, setSavedURL] = useState<string>("")
   const [inputImage, setInputImage] = useState<any | null>(null)
   // const [fullScreenImage, setFullscreenImage] = useState(false)
+
+  
+
+  
 
   
 
@@ -385,6 +399,14 @@ const Home = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  if (isLoading) {
+
+    return <div className="loading-container">
+      <ClipLoader color="green" size={35} />
+      <p>Entering the matrix...</p>
+    </div>
+  }
+
   return (
     <div className='behind'>
       
@@ -431,7 +453,7 @@ const Home = () => {
         <Preset open={openmenu}>
           <h3>Choose Style</h3>
           <ul>
-              {items.map((item, index) => (<li key={index} onClick={() => changeVal(item.name, index)}
+              {items.map((item, index) => (<li className="preset-item" key={index} onClick={() => changeVal(item.name, index)}
                   style={{backgroundColor : activeIndex === index ? "rgb(57, 255, 31)" : "#000000",
                   }}>
                   <img src={item.img} alt="" />
