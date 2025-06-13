@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
 
     const buffer = await response.arrayBuffer();
-    res.setHeader('Content-Type', 'image/png');
+    res.setHeader('Content-Type', 'image/jpeg');
     res.send(Buffer.from(buffer));
 
 }

@@ -10,32 +10,32 @@ const Index: React.FC = () => {
       'digitized': '/index/digitized-ship.png'
     },
     {
-      'first': '/index/gun.jpg',
-      'digitized': '/index/digitized-gun.png'
+      'first': 'https://res.cloudinary.com/ddoc87vbi/image/upload/v1749787897/gun_bgxeys.jpg',
+      'digitized': 'https://res.cloudinary.com/ddoc87vbi/image/upload/v1749786824/digitized-gun_fcmtfz.png'
     },
     {
-      'first': '/index/blackhole.jpg',
-      'digitized': '/index/digitized-blackhole.png'
+      'first': 'https://res.cloudinary.com/ddoc87vbi/image/upload/v1749785812/blackhole_gaarfb.jpg',
+      'digitized': 'https://res.cloudinary.com/ddoc87vbi/image/upload/v1749785887/digitized-blackhole_lo6upk.png'
     },
     {
-      'first': '/index/minecraft.jpg',
-      'digitized': '/index/digitized-minecraft.png'
+      'first': 'https://res.cloudinary.com/ddoc87vbi/image/upload/v1749787918/minecraft_aywqrv.jpg',
+      'digitized': 'https://res.cloudinary.com/ddoc87vbi/image/upload/v1749787125/f_auto,q_auto,fl_progressive/digitized-minecraft_xmihoi.png'
     },
     {
-      'first': '/index/morgan.jpg',
-      'digitized': '/index/digitized-morgan.png'
+      'first': 'https://res.cloudinary.com/ddoc87vbi/image/upload/v1749787891/morgan_zvn5ky.jpg',
+      'digitized': 'https://res.cloudinary.com/ddoc87vbi/image/upload/v1749786786/digitized-morgan_nbmuqo.png'
     },
     {
-      'first': '/index/explosion.jpg',
-      'digitized': '/index/processed_image (74).png'
+      'first': 'https://res.cloudinary.com/ddoc87vbi/image/upload/f_auto,q_auto,fl_progressive/v1749787898/explosion_xmzrcj.jpg',
+      'digitized': 'https://res.cloudinary.com/ddoc87vbi/image/upload/f_auto,q_auto,fl_progressive/v1749786876/digitized-explosion_2_dtznub.png'
     },
     {
-      'first': '/index/Monalisa.jpg',
-      'digitized': '/index/digitized-monalisa.png'
+      'first': 'https://res.cloudinary.com/ddoc87vbi/image/upload/f_auto,q_auto,fl_progressive/v1749787919/Monalisa_qx0rpq.jpg',
+      'digitized': 'https://res.cloudinary.com/ddoc87vbi/image/upload/f_auto,q_auto,fl_progressive/v1749786891/digitized-monalisa_uezgzq.png'
     },
     {
-      'first': '/index/dunk.jpg',
-      'digitized': '/index/digitized-dunk.png'
+      'first': 'https://res.cloudinary.com/ddoc87vbi/image/upload/f_auto,q_auto,fl_progressive/v1749787916/dunk_ja3iue.jpg',
+      'digitized': 'https://res.cloudinary.com/ddoc87vbi/image/upload/v1749786948/f_auto,q_auto,fl_progressive/digitized-dunk_htnw9m.png'
     }
   ]
 
@@ -69,6 +69,7 @@ const Index: React.FC = () => {
       <h1>ARRAY</h1>
       <p>Adjust Threshold to add more or less digits.</p>
       <button onClick={handleNavigate}>Enter the Matrix</button>
+      <a href="https://www.producthunt.com/products/array-3?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-array&#0045;3" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=977097&theme=dark&t=1749810912290" alt="Array - AI&#0032;which&#0032;digitizes&#0032;images&#0032;creating&#0032;a&#0032;matrix&#0032;effect&#0046; | Product Hunt" style={{width: '250px', height: '54px;'}} width="250" height="54" /></a>
     </div>
     <section>
       <p>Somewhere in Hilbert's space, there's a universe made up of only digits. Just like how atoms make up our universe.</p>

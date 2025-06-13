@@ -78,7 +78,6 @@ const Home = () => {
       if (session) {
         const user = session.user;
         const user_id = session.user.id
-        console.log(session.user.user_metadata.avatar_url)
         addUserToDatabase(session)
         setUID(user_id)
         
@@ -87,21 +86,22 @@ const Home = () => {
             setaccountName(user.email.charAt(0).toUpperCase())
           }
         } else {
-          console.log("User's url", user.user_metadata.avatar_url)
           setaccountName(user.user_metadata.picture)
         }
-        console.log('ACTIVE SESSSION LOCATED DAMMMIT!!!S')
+        // console.log('ACTIVE SESSSION LOCATED DAMMMIT!!!S')
+        setIsLoading(false)
       } else {
-        console.log('NO ACTIVE SESSION LOCATED!!')
+        // console.log('NO ACTIVE SESSION LOCATED!!')
+        setIsLoading(false)
         navigate('/login')
       }
     } catch(error) {
       console.log(error)
-      console.log('AN ERROR OCCURRED!!!!!!!!!!!')
+      // console.log('AN ERROR OCCURRED!!!!!!!!!!!')
+      setIsLoading(false)
       navigate('/')
     }
-    setIsLoading(false)
-    console.log(isLoading)
+    
   }
   
   useEffect(() => {
@@ -139,6 +139,7 @@ const Home = () => {
   const [isSaving, setIsSaving] = useState(false)
   const [savedURL, setSavedURL] = useState<string>("")
   const [inputImage, setInputImage] = useState<any | null>(null)
+  const [savingText, setSavingText] = useState("Saving to the Arraverse")
   // const [fullScreenImage, setFullscreenImage] = useState(false)
 
   
@@ -222,6 +223,7 @@ const Home = () => {
   const cloudinaryUpload = async () => {
     if (!processedImageURL) return;
     setIsSaving(true)
+    setSavingText('Saving to the Arraverse')
     try{
 
       const base64DataUri = await blobToBase64(img);
@@ -235,21 +237,23 @@ const Home = () => {
 
       }).then(response => response.json())
       .then(data => {
-        console.log(data.url);
 
         setSavedURL(data.url)
+        alert('Saved to the Arraverse')
+        setIsSaving(false)
       })
       .catch(error => {
         console.error('Error:', error);
+        setSavingText('Failed to save')
       });
 
       
 
     } catch (err) {
       console.log(err)
-      alert('Failed to save')
+      setSavingText('Failed to save')
     }
-    setIsSaving(false)
+    
     
   }
 
@@ -393,6 +397,9 @@ const Home = () => {
     const handleClickOutside = (e: MouseEvent) => {
       if (popupmenuRef.current && !popupmenuRef.current.contains(e.target as Node)) {
         setopenpop(false);
+        if (savingText === 'Saved to the Arraverse') {
+          setIsSaving(false);
+        }
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -505,7 +512,7 @@ const Home = () => {
           {isSaving && 
             <div className="saving-container">
               <ClipLoader color="green" size={30} />
-              <p>Saving to the Arraverse</p>
+              <p>{savingText}</p>
             </div>
           
           }

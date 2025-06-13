@@ -23,11 +23,11 @@ export default async function addUserToDatabase(req, res) {
     .eq('email', user.user.email);
 
     if (!data || data.length === 0) {
+        console.log('USER DOES NOT EXIST!!')
+    } else {
         console.log("User exists man!!!!!!!!!!!!")
         res.status(200).json({state: "User exists man!!!!!!!!!!!!"});
         return
-    } else {
-        console.log('USER DOES NOT EXIST!!')
     }
 
     const { error } = await supabase

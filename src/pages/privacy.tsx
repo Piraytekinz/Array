@@ -40,6 +40,28 @@ const Privacy = () => {
                 Analyze anonymized usage trends
                 We do not use your images for training AI models or any other purpose without explicit user consent.
             </li>
+            <li>
+                Use of Google Authenticator
+                To enhance account security, our Service may use Google Authenticator or other time-based one-time password (TOTP) apps to enable two-factor authentication (2FA). This additional security layer helps protect your account from unauthorized access.
+
+                When you enable Google Authenticator:
+                <ul>
+                    <li>We generate a secure, time-based token that you can scan or enter into the app.</li>
+                    <li>We do not collect, transmit, or store your verification codes or secret keys.</li>
+                    <li>The verification process occurs locally and is only used to confirm your identity when logging in or performing sensitive operations.</li>
+                    <li>Your use of Google Authenticator is entirely optional but strongly recommended for enhanced account protection.</li>
+                </ul>
+            </li>
+            <li>
+                Google API Disclosure
+                If you sign in or connect your Google account via OAuth for authentication purposes, please note:
+                <ul>
+                    <li>We use your Google email and basic profile information strictly for account identification and login.</li>
+                    <li>We do not read, modify, or store any other personal data from your Google account.</li>
+                    <li>Our app complies with Google's API Services User Data Policy, including the Limited Use requirements.</li>
+                    <li>You can revoke access at any time via your Google Account's security settings: https://myaccount.google.com/permissions</li>
+                </ul>
+            </li>
 
             <li>
                 Data Retention
@@ -67,7 +89,7 @@ const Privacy = () => {
 
 
             <li>
-                6. Security
+                Security
                 We take appropriate security measures to protect your data, including:
                 Secure image transmission (HTTPS)
                 Timely deletion of temporary files
@@ -75,17 +97,17 @@ const Privacy = () => {
             </li>
 
             <li>
-                7. Children's Privacy
+                Children's Privacy
                 Our Service is not intended for individuals under the age of 13. We do not knowingly collect personal data from children. If we discover such data, it will be promptly deleted.
             </li>
 
             <li>
-                8. Changes to This Policy
+                Changes to This Policy
                 We may update this Privacy Policy occasionally. We will notify users of significant changes via our website or app. Continued use of the Service after changes indicates acceptance.
             </li>
 
             <li>
-                9. Contact Us
+                Contact Us
                 For questions or concerns about this Privacy Policy, contact us at:
                 📧 <a href="mailto: arrayuniverse09@gmail.com">arrayuniverse09@gmail.com</a>
                 {/* 🌐 [your website] */}

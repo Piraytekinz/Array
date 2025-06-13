@@ -224,6 +224,19 @@ h3 {
     }
 }
 
+.loading-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.loading-container p {
+    color: rgb(57, 255, 31);
+}
+
 @media (max-width: 600px) {
     .button-container {
         width: 270px;

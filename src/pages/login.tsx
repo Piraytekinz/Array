@@ -34,7 +34,6 @@ export default function LoginPage() {
   };
 
   const signUpWithEmail = async () => {
-    console.log("signupclicked!")
     setLoading(true)
     const { error } = await supabase.auth.signUp({ email, password, options: {
         emailRedirectTo: `${window.location.origin}/home`
@@ -84,7 +83,6 @@ export default function LoginPage() {
         console.error('Error sending password reset email:', error.message);
         setMessage(error.message)
     } else {
-        console.log('Password reset email sent!');
         setMessage("Password reset email sent. Check in spam if not in your inbox.")
     }
   }

@@ -30,34 +30,50 @@ const Gallery = () => {
 
     // Initial load
     useEffect(() => {
-        console.log('using effect like a pro')
         fetchUrls(from);
         // eslint-disable-next-line
     }, []);
 
     const fetchUrls = async (start: any) => {
-        console.log("start", start)
         setLoading(true)
+        // console.log(urls)
+        let order = false
+
+        if (urls.length > 1) {
+            order = true
+        } else {
+            order = false
+        }
+        console.log("order", order)
         const { data, error } = await supabase
         .from("images")
         .select("id, url, url1, created_at")
-        .order("created_at", { ascending: false })
+        .order("created_at", { ascending: order })
         .range(start, start + PAGE_SIZE - 1);
 
         if (error) {
         console.error(error);
         return;
         }
+        let newData = data
+        for (let i in newData) {
+            let idx = newData[i].url.lastIndexOf("upload/")
+            let idx1 = newData[i].url1.lastIndexOf("upload/")
+            newData[i].url = newData[i].url.slice(0, idx+"upload/".length) + "f_auto,q_auto,fl_progressive/" + newData[i].url.slice(43+"upload/".length)
+            newData[i].url1 = newData[i].url1.slice(0, idx1+"upload/".length) + "f_auto,q_auto,fl_progressive/" + newData[i].url1.slice(43+"upload/".length)
+        }
 
-        console.log("data:", data)
 
-        if (data.length < PAGE_SIZE) {
+
+        if (newData.length < PAGE_SIZE) {
             setHasMore(false);
         }
         
-        setUrls((prev) => [...prev, ...data]);
-        setFrom(start + data.length);
+        setUrls((prev) => [...prev, ...newData]);
+        setFrom(start + newData.length);
         setLoading(false)
+
+        console.log(urls)
     };
 
 
@@ -85,7 +101,6 @@ const Gallery = () => {
         const blob = await response.blob();
         const blobUrl = URL.createObjectURL(blob);
 
-        console.log(blobUrl)
 
         const link = document.createElement("a");
         link.href = blobUrl;
@@ -114,11 +129,11 @@ const Gallery = () => {
         <h2>Welcome to the <b>Arraverse</b></h2>
         
         {
-            urls &&
+            urls.length > 0 &&
             urls.map((item, index) => <div className="arraverse-image-container" key={index}
             >
-            <img src={item.url1} alt="" />
-            <img src={item.url} alt="" />
+            <img src={item.url1} alt="Progressive" loading='lazy' />
+            <img src={item.url} alt="Progressive" loading='lazy' />
             <div className="download-img" onClick={() => downloadImg(item.url)}>
                 <img src="/download.png" alt="" />
             </div>
