@@ -21,6 +21,7 @@ export default function LoginPage() {
 
   const signInWithEmail = async () => {
     setLoading(true)
+    logout()
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
         setMessage(error.message)
@@ -35,6 +36,7 @@ export default function LoginPage() {
 
   const signUpWithEmail = async () => {
     setLoading(true)
+    logout()
     const { error } = await supabase.auth.signUp({ email, password, options: {
         emailRedirectTo: `${window.location.origin}/home`
       } });
@@ -44,12 +46,15 @@ export default function LoginPage() {
         // addUserToDatabase(data.session)
         // setUID(data.session?.user)
         // navigate('/home')
+    } else {
+      setMessage("Confirmation email sent to your inbox. Check in spam if not located.")
     }
     setLoading(false)
   };
 
   const signInWithMagicLink = async () => {
     setLoading(true)
+    logout()
     const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
@@ -87,10 +92,10 @@ export default function LoginPage() {
     }
   }
 
-//   const logout = async () => {
-//     const { error } = await supabase.auth.signOut({ scope: 'local' });
-//     if (error) alert (error.message)
-//   }
+  const logout = async () => {
+    const { error } = await supabase.auth.signOut({ scope: 'local' });
+    if (error) alert (error.message)
+  }
 
   return (
     <div className="login-form">
