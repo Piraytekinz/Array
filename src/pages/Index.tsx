@@ -84,8 +84,8 @@ const Index: React.FC = () => {
     </section>
     <footer>
       <p>By using Array you agree to the</p>
-      <button onClick={() => navigate('/privacy')}>Privacy Policy</button>
-      <button onClick={() => navigate('/terms')}>Terms and conditions</button>
+      <button onClick={() => navigate('/privacypolicy')}>Privacy Policy</button>
+      <button onClick={() => navigate('/termsandconditions')}>Terms and conditions</button>
     </footer>
     
   </div>

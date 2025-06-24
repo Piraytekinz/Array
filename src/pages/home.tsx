@@ -9,7 +9,7 @@ import './videobackground.css'
 import { ClipLoader } from "react-spinners";
 import PopupMenu from "../components/Popup";
 import { Contexti } from "../components/AppContext";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 import {supabase} from '../auth'
 import { addUserToDatabase } from "../auth";
@@ -66,41 +66,41 @@ const Home = () => {
   const { selectedFile, setSelectedFile, previewUrl, setPreviewUrl, uid, setUID, activeIndex, setActiveIndex,
     matchBrightness, setMatchBrightness} = context;
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
   
 
   async function initialize() {
-    try {
+    // try {
 
 
-      const { data: { session } } = await supabase.auth.getSession();
+    const { data: { session } } = await supabase.auth.getSession();
 
-      if (session) {
-        const user = session.user;
-        const user_id = session.user.id
-        addUserToDatabase(session)
-        setUID(user_id)
-        
-        if (user.app_metadata.provider === 'email' ) {
-          if (user.email) {
-            setaccountName(user.email.charAt(0).toUpperCase())
-          }
-        } else {
-          setaccountName(user.user_metadata.picture)
+    if (session) {
+      const user = session.user;
+      const user_id = session.user.id
+      addUserToDatabase(session)
+      setUID(user_id)
+      
+      if (user.app_metadata.provider === 'email' ) {
+        if (user.email) {
+          setaccountName(user.email.charAt(0).toUpperCase())
         }
-        // console.log('ACTIVE SESSSION LOCATED DAMMMIT!!!S')
-        setIsLoading(false)
       } else {
-        // console.log('NO ACTIVE SESSION LOCATED!!')
-        setIsLoading(false)
-        navigate('/login')
+        setaccountName(user.user_metadata.picture)
       }
-    } catch(error) {
-      console.log(error)
-      // console.log('AN ERROR OCCURRED!!!!!!!!!!!')
-      setIsLoading(false)
-      navigate('/')
+      
     }
+    setIsLoading(false)
+    // } else {
+    //   setIsLoading(false)
+    //   navigate('/login')
+    // }
+    // } catch(error) {
+    //   console.log(error)
+    //   // console.log('AN ERROR OCCURRED!!!!!!!!!!!')
+    //   setIsLoading(false)
+    //   navigate('/')
+    // }
     
   }
   
@@ -177,7 +177,7 @@ const Home = () => {
 
 
     try {
-      const response = await fetch("/api/huggingface", {
+      const response = await fetch("http://localhost:3000/upload", {
         method: "POST",
         body: formData
       });
@@ -213,6 +213,14 @@ const Home = () => {
     {
       "name": "Blend",
       "img": "/tiger-blend.jpeg"
+    },
+    {
+      "name": "Minesweeper",
+      "img": "/tiger-minesweeper.jpeg"
+    },
+    {
+      "name": "Dots",
+      "img": "/tiger-dots.jpeg"
     }
   ]
 
@@ -222,6 +230,10 @@ const Home = () => {
 
   const cloudinaryUpload = async () => {
     if (!processedImageURL) return;
+    if (uid === null) {
+      alert('You have to be signed in to save this image.')
+      return
+    }
     setIsSaving(true)
     setSavingText('Saving to the Arraverse')
     try{
@@ -245,6 +257,7 @@ const Home = () => {
       .catch(error => {
         console.error('Error:', error);
         setSavingText('Failed to save')
+        setIsSaving(false)
       });
 
       
@@ -252,6 +265,7 @@ const Home = () => {
     } catch (err) {
       console.log(err)
       setSavingText('Failed to save')
+      setIsSaving(false)
     }
     
     

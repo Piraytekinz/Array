@@ -42,8 +42,8 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacypolicy" element={<Privacy />} />
+          <Route path="/termsandconditions" element={<Terms />} />
 
         </Routes>
         <nav>

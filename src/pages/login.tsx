@@ -70,14 +70,14 @@ export default function LoginPage() {
     setLoading(false)
   };
 
-  // const signInWithGoogle = async () => {
-  //   setLoading(true)
-  //   const { error } = await supabase.auth.signInWithOAuth({ provider: "google", options: {
-  //       redirectTo: `${window.location.origin}/home`
-  //     }});
-  //   if (error) setMessage(error.message);
-  //   setLoading(false)
-  // };
+  const signInWithGoogle = async () => {
+    setLoading(true)
+    const { error } = await supabase.auth.signInWithOAuth({ provider: "google", options: {
+        redirectTo: `${window.location.origin}/home`
+      }});
+    if (error) setMessage(error.message);
+    setLoading(false)
+  };
 
   const passwordReset = async () => {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -113,7 +113,7 @@ export default function LoginPage() {
             <button onClick={signInWithMagicLink}>Sign In with Magic Link</button>
             <button onClick={passwordReset}>Forgot Password?</button>
             {/* <button onClick={logout}>Logout</button> */}
-            {/* <button onClick={signInWithGoogle}>Sign In with Google</button> */}
+            <button onClick={signInWithGoogle}>Sign In with Google</button>
         </div>
     </div>
   );
