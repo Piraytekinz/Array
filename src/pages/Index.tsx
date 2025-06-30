@@ -1,6 +1,7 @@
 import React from 'react';
 import './Index.css'
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const Index: React.FC = () => {
 
@@ -53,7 +54,13 @@ const Index: React.FC = () => {
     navigate('/home')
   }
 
-  return <div className='main-container'>
+  return (
+    <>
+      <Helmet>
+        <link rel="canonical" href="https://array-psi.vercel.app/" />
+      </Helmet>
+    
+    <div className='main-container'>
     <div className="back">
       <video
         className="background-video"
@@ -89,6 +96,8 @@ const Index: React.FC = () => {
     </footer>
     
   </div>
+  </>
+  )
 };
 
 export default Index;
