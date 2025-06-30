@@ -1,8 +1,0 @@
-https://array-psi.vercel.app/home
-https://array-psi.vercel.app/cool-image-effects
-https://array-psi.vercel.app/image-to-grayscale-matrix
-https://array-psi.vercel.app/image-to-csv-pixels
-https://array-psi.vercel.app/gallery
-https://array-psi.vercel.app/resetpassword
-https://array-psi.vercel.app/login
-
