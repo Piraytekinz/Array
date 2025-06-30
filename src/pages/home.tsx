@@ -339,6 +339,7 @@ const Home = () => {
   function changeVal(val: string, idx: number) {
     setPresetValue(val)
     setActiveIndex(idx)
+    console.log("Active Index", idx)
   }
 
 
@@ -556,8 +557,13 @@ const Home = () => {
           
           <div className="slider-container">
             <SliderComponent background='rgb(57, 255, 31)' id={1} increaseThreshold={(value) => changeThreshold(value, '1')} value={threshold} />
-            <SliderComponent background='rgb(0,100,0)' id={2} increaseThreshold={(e) => changeThreshold(e, '2')} value={threshold1} />
-            <SliderComponent background='rgb(0,50,0)' id={3} increaseThreshold={(e) => changeThreshold(e, '3')} value={threshold2} />
+              {
+                activeIndex < 12 &&
+                <div>
+                  <SliderComponent background='rgb(0,100,0)' id={2} increaseThreshold={(e) => changeThreshold(e, '2')} value={threshold1} />
+                  <SliderComponent background='rgb(0,50,0)' id={3} increaseThreshold={(e) => changeThreshold(e, '3')} value={threshold2} />
+                </div>
+              }
           </div>
           {isSaving && 
             <div className="saving-container">

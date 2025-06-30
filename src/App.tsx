@@ -11,6 +11,7 @@ import ResetPassword from './pages/passwordReset';
 import {AppProvider} from './components/AppContext';
 import Privacy from './pages/privacy';
 import Terms from './pages/terms';
+import SEOToolPage from './pages/seo/SEOToolPage';
 
 
 
@@ -44,6 +45,8 @@ function App() {
           <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="/privacypolicy" element={<Privacy />} />
           <Route path="/termsandconditions" element={<Terms />} />
+          <Route path="/tools/:slug" element={<SEOToolPage />} />
+
 
         </Routes>
         <nav>

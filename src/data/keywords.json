@@ -1,0 +1,28 @@
+[
+    {
+      "slug": "image-to-csv-pixels",
+      "title": "Convert Image to CSV Pixel Data",
+      "description": "Easily extract image pixel values and download them as CSV."
+    },
+    {
+      "slug": "image-to-grayscale-matrix",
+      "title": "Image to Grayscale Matrix",
+      "description": "Convert your image into a raw grayscale matrix with pixel values."
+    },
+    {
+      "slug": "cool-image-effects",
+      "title": "Create cool image effects",
+      "description": "Create cool image effects with this tool."
+    },
+    {
+      "slug": "image-digitizer-tool",
+      "title": "Digitize your images",
+      "description": "Digitize your images by converting them into numbers."
+    },
+    {
+      "slug": "matrix-array",
+      "title": "Digitize your images",
+      "description": "Digitize your images by converting them into numbers."
+    }
+  ]
+  
