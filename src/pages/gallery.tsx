@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { ClipLoader } from "react-spinners";
 
 
-const PAGE_SIZE = 10; // how many to load at once
+const PAGE_SIZE = 15; // how many to load at once
 
 
 const Gallery = () => {

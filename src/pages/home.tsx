@@ -177,7 +177,7 @@ const Home = () => {
 
 
     try {
-      const response = await fetch("http://localhost:3000/upload", {
+      const response = await fetch("/api/huggingface", {
         method: "POST",
         body: formData
       });
@@ -219,8 +219,44 @@ const Home = () => {
       "img": "/tiger-minesweeper.jpeg"
     },
     {
-      "name": "Dots",
+      "name": "Glitter",
       "img": "/tiger-dots.jpeg"
+    },
+    {
+      "name": "Cosmic Glitter",
+      "img": "/tiger-cosmicglitter.jpeg"
+    },
+    {
+      "name": "Black Dots",
+      "img": "/tiger-blackdots.jpeg"
+    },
+    {
+      "name": "Black Cube",
+      "img": "/tiger-cube.jpeg"
+    },
+    {
+      "name": "Shandora",
+      "img": "/tiger-shandora.jpeg"
+    },
+    {
+      "name": "Red Brick",
+      "img": "/tiger-redbrick.jpeg"
+    },
+    {
+      "name": "Americana",
+      "img": "/tiger-americana.jpeg"
+    },
+    {
+      "name": "Indiana",
+      "img": "/tiger-indiana.jpeg"
+    },
+    {
+      "name": "Britainnia",
+      "img": "/tiger-britainnia.jpeg"
+    },
+    {
+      "name": "Canadino",
+      "img": "/tiger-canadino.jpeg"
     }
   ]
 
