@@ -58,6 +58,7 @@ const Index: React.FC = () => {
     <>
       <Helmet>
         <link rel="canonical" href="https://array-psi.vercel.app/" />
+        <meta name="description" content="Turn your images into awesome particle effects" />
       </Helmet>
     
     <div className='main-container'>

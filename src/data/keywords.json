@@ -1,5 +1,10 @@
 [
     {
+      "slug": "Array",
+      "title": "Convert images to digital art.",
+      "description": "Convert any image into particles or digitial art."
+    },
+    {
       "slug": "image-to-csv-pixels",
       "title": "Convert Image to CSV Pixel Data",
       "description": "Easily extract image pixel values and download them as CSV."

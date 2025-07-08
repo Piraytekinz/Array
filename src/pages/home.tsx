@@ -177,7 +177,7 @@ const Home = () => {
 
 
     try {
-      const response = await fetch("/api/huggingface", {
+      const response = await fetch("http://localhost:3000/upload", {
         method: "POST",
         body: formData
       });
@@ -243,6 +243,22 @@ const Home = () => {
       "img": "/tiger-redbrick.jpeg"
     },
     {
+      "name": "Sand Man",
+      "img": "/tiger-sand.jpeg"
+    },
+    {
+      "name": "White Sand",
+      "img": "/tiger-whitesand.jpeg"
+    },
+    {
+      "name": "Sky Entity",
+      "img": "/tiger-sky.jpeg"
+    },
+    {
+      "name": "Cosmic Entity",
+      "img": "/tiger-cosmic.png"
+    },
+    {
       "name": "Americana",
       "img": "/tiger-americana.jpeg"
     },
@@ -258,6 +274,10 @@ const Home = () => {
       "name": "Canadino",
       "img": "/tiger-canadino.jpeg"
     }
+  ]
+  const exceptions = [
+    14,
+    15
   ]
 
 
@@ -558,10 +578,10 @@ const Home = () => {
           <div className="slider-container">
             <SliderComponent background='rgb(57, 255, 31)' id={1} increaseThreshold={(value) => changeThreshold(value, '1')} value={threshold} />
               {
-                activeIndex < 12 &&
+                activeIndex < 16 &&
                 <div>
                   <SliderComponent background='rgb(0,100,0)' id={2} increaseThreshold={(e) => changeThreshold(e, '2')} value={threshold1} />
-                  <SliderComponent background='rgb(0,50,0)' id={3} increaseThreshold={(e) => changeThreshold(e, '3')} value={threshold2} />
+                    {exceptions.includes(activeIndex) == false && <SliderComponent background='rgb(0,50,0)' id={3} increaseThreshold={(e) => changeThreshold(e, '3')} value={threshold2} />}
                 </div>
               }
           </div>
