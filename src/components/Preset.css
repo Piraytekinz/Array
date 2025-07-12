@@ -16,6 +16,25 @@
     top: 0%;
 }
 
+.style-top {
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+    margin: 0px;
+}
+.style-top button {
+    height: 40px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.style-top h3 {
+    justify-self: flex-end;
+}
+
 ul {
     width: 100%;
     padding: 0px;

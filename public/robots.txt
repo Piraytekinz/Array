@@ -1,3 +1,5 @@
+Sitemap: https://array-psi.vercel.app/sitemap.xml
+
 User-agent: *
 Allow: /
-Sitemap: https://array-psi.vercel.app/sitemap_new.xml
+

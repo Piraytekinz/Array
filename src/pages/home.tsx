@@ -13,6 +13,7 @@ import { Contexti } from "../components/AppContext";
 // import { useNavigate } from "react-router-dom";
 import {supabase} from '../auth'
 import { addUserToDatabase } from "../auth";
+import { Helmet } from "react-helmet";
 
 
 
@@ -63,7 +64,7 @@ const Home = () => {
   
   const [isLoading, setIsLoading] = useState(true);
 
-  const { selectedFile, setSelectedFile, previewUrl, setPreviewUrl, uid, setUID, activeIndex, setActiveIndex,
+  const { selectedFile, setSelectedFile, previewUrl, setPreviewUrl, uid, setUID, presetvalue, setPresetValue, activeIndex, setActiveIndex,
     matchBrightness, setMatchBrightness} = context;
 
     // const navigate = useNavigate()
@@ -129,7 +130,6 @@ const Home = () => {
   
   
   const [accountName, setaccountName] = useState("")
-  const [presetvalue, setPresetValue] = useState("Matrix");
   const [processedImageURL, setProcessedImageURL] = useState<string>("");
   const [threshold, setThreshold] = useState(210);
   const [threshold1, setThreshold1] = useState(120);
@@ -161,7 +161,7 @@ const Home = () => {
   };
 
 
-    const handleUpload = async () => {
+  const handleUpload = async () => {
     if (!selectedFile) return;
     setShowVideo(true);
 
@@ -177,7 +177,7 @@ const Home = () => {
 
 
     try {
-      const response = await fetch("http://localhost:3000/upload", {
+      const response = await fetch("/api/huggingface", {
         method: "POST",
         body: formData
       });
@@ -189,6 +189,7 @@ const Home = () => {
       console.error(err);
       alert("Upload failed.");
     }
+    console.log('Stop loading animation dammit!!!')
     stopLoadingAnimation()
     setShowVideo(false);
   };
@@ -209,6 +210,10 @@ const Home = () => {
     {
       "name": "Code Red",
       "img": "/tiger-red.png"
+    },
+    {
+      "name": "Code Blue",
+      "img": "/tiger-blue.jpeg"
     },
     {
       "name": "Blend",
@@ -243,6 +248,10 @@ const Home = () => {
       "img": "/tiger-redbrick.jpeg"
     },
     {
+      "name": "Pixel Art",
+      "img": "/tiger-pixel.jpeg"
+    },
+    {
       "name": "Sand Man",
       "img": "/tiger-sand.jpeg"
     },
@@ -255,7 +264,7 @@ const Home = () => {
       "img": "/tiger-sky.jpeg"
     },
     {
-      "name": "Cosmic Entity",
+      "name": "Galaxy Impact",
       "img": "/tiger-cosmic.png"
     },
     {
@@ -276,8 +285,8 @@ const Home = () => {
     }
   ]
   const exceptions = [
-    14,
-    15
+    15,
+    16
   ]
 
 
@@ -486,6 +495,11 @@ const Home = () => {
   }
 
   return (
+    <>
+      <Helmet>
+        <meta name="description" content="Particle effects." />
+      </Helmet>
+    
     <div className='behind'>
       
       {
@@ -529,7 +543,10 @@ const Home = () => {
         <div className="overlay" onClick={() => setOpenmenu('close')} 
         style={{ display: openmenu === 'close' ? 'none' : 'block' }}></div>
         <Preset open={openmenu}>
-          <h3>Choose Style</h3>
+          <div className="style-top">
+            <button className="close-style-menu" onClick={() => setOpenmenu('close')}>Close</button>
+            <h3>Choose Style</h3>
+          </div>
           <ul>
               {items.map((item, index) => (<li className="preset-item" key={index} onClick={() => changeVal(item.name, index)}
                   style={{backgroundColor : activeIndex === index ? "rgb(57, 255, 31)" : "#000000",
@@ -578,7 +595,7 @@ const Home = () => {
           <div className="slider-container">
             <SliderComponent background='rgb(57, 255, 31)' id={1} increaseThreshold={(value) => changeThreshold(value, '1')} value={threshold} />
               {
-                activeIndex < 16 &&
+                activeIndex < 17 &&
                 <div>
                   <SliderComponent background='rgb(0,100,0)' id={2} increaseThreshold={(e) => changeThreshold(e, '2')} value={threshold1} />
                     {exceptions.includes(activeIndex) == false && <SliderComponent background='rgb(0,50,0)' id={3} increaseThreshold={(e) => changeThreshold(e, '3')} value={threshold2} />}
@@ -592,10 +609,11 @@ const Home = () => {
             </div>
           
           }
-          <button id="digitize" className="digitize" onClick={handleUpload}>Digitize</button>
+          <button id="digitize" className="digitize" onClick={() => handleUpload()}>Digitize</button>
         </div>
       </div>
     </div>
+    </>
   );
 }
 

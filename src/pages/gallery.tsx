@@ -48,7 +48,7 @@ const Gallery = () => {
         const { data, error } = await supabase
         .from("images")
         .select("id, url, url1, created_at")
-        .order("created_at", { ascending: order })
+        .order("created_at", { ascending: false })
         .range(start, start + PAGE_SIZE - 1);
 
         if (error) {

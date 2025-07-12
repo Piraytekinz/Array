@@ -26,6 +26,8 @@ type AppContextType = {
     setPreviewUrl: React.Dispatch<React.SetStateAction<"" | string>>;
     uid: any;
     setUID: React.Dispatch<React.SetStateAction<null | any>>;
+    presetvalue: string;
+    setPresetValue: React.Dispatch<React.SetStateAction<"Matrix" | string>>;
     activeIndex: number;
     setActiveIndex: React.Dispatch<React.SetStateAction<0 | number>>;
     matchBrightness: boolean;
@@ -49,6 +51,8 @@ export function AppProvider({ children }: Props) {
   const [activeIndex, setActiveIndex] = useState<number | 0>(0);
   const [matchBrightness, setMatchBrightness] = useState(false)
   const [isSession, setisSession] = useState(false)
+  const [presetvalue, setPresetValue] = useState("Matrix");
+  
   
   
 
@@ -56,7 +60,7 @@ export function AppProvider({ children }: Props) {
   return (
     <Contexti.Provider value={{ uploadedImage, setUploadedImage, urls, setUrls, 
     from, setFrom, selectedFile, setSelectedFile, previewUrl, setPreviewUrl, hasMore, setHasMore, 
-    uid, setUID, activeIndex, setActiveIndex, matchBrightness, setMatchBrightness,
+    uid, setUID, presetvalue, setPresetValue, activeIndex, setActiveIndex, matchBrightness, setMatchBrightness,
     isSession, setisSession }}>
       {children}
     </Contexti.Provider>

@@ -1,43 +1,8 @@
 [
     {
-      "slug": "Array",
-      "title": "Convert images to digital art.",
+      "slug": "array",
+      "title": "Convert images to awesome particle effects.",
       "description": "Convert any image into particles or digitial art."
-    },
-    {
-      "slug": "image-to-csv-pixels",
-      "title": "Convert Image to CSV Pixel Data",
-      "description": "Easily extract image pixel values and download them as CSV."
-    },
-    {
-      "slug": "image-to-grayscale-matrix",
-      "title": "Image to Grayscale Matrix",
-      "description": "Convert your image into a raw grayscale matrix with pixel values."
-    },
-    {
-      "slug": "cool-image-effects",
-      "title": "Create cool image effects",
-      "description": "Create cool image effects with this tool."
-    },
-    {
-      "slug": "image-digitizer-tool",
-      "title": "Digitize your images",
-      "description": "Digitize your images by converting them into numbers."
-    },
-    {
-      "slug": "image-particle-effects",
-      "title": "Image particle effects",
-      "description": "Turn your images into particle effects."
-    },
-    {
-      "slug": "matrix-array",
-      "title": "Image particle effects",
-      "description": "Turn your images into particle effects."
-    },
-    {
-      "slug": "matrix-login",
-      "title": "Digitize your images",
-      "description": "Login in to the matrix and turn your images into particles effects or numbers."
     }
-  ]
+]
   
