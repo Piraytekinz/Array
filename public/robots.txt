@@ -1,5 +1,3 @@
-Sitemap: https://array-psi.vercel.app/sitemap.xml
-
 User-agent: *
-Allow: /
+Disallow: 
 

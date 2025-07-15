@@ -27,16 +27,16 @@ const Index: React.FC = () => {
       'digitized': 'https://res.cloudinary.com/ddoc87vbi/image/upload/v1749786786/digitized-morgan_nbmuqo.png'
     },
     {
-      'first': 'https://res.cloudinary.com/ddoc87vbi/image/upload/f_auto,q_auto,fl_progressive/v1749787898/explosion_xmzrcj.jpg',
-      'digitized': 'https://res.cloudinary.com/ddoc87vbi/image/upload/f_auto,q_auto,fl_progressive/v1749786876/digitized-explosion_2_dtznub.png'
+      'first': '/index/Superman.jpg',
+      'digitized': '/index/supermerica.jpeg'
     },
     {
       'first': 'https://res.cloudinary.com/ddoc87vbi/image/upload/f_auto,q_auto,fl_progressive/v1749787919/Monalisa_qx0rpq.jpg',
       'digitized': 'https://res.cloudinary.com/ddoc87vbi/image/upload/f_auto,q_auto,fl_progressive/v1749786891/digitized-monalisa_uezgzq.png'
     },
     {
-      'first': 'https://res.cloudinary.com/ddoc87vbi/image/upload/f_auto,q_auto,fl_progressive/v1749787916/dunk_ja3iue.jpg',
-      'digitized': 'https://res.cloudinary.com/ddoc87vbi/image/upload/v1749786948/f_auto,q_auto,fl_progressive/digitized-dunk_htnw9m.png'
+      'first': '/index/afghan.jpg',
+      'digitized': '/index/cosmic-afghan.jpeg'
     }
   ]
 
@@ -57,6 +57,7 @@ const Index: React.FC = () => {
   return (
     <>
       <Helmet>
+        <title>Array</title>
         <link rel="canonical" href="https://array-psi.vercel.app/" />
         <meta name="description" content="Turn your images into awesome particle effects." />
       </Helmet>

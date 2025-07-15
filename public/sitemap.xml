@@ -1,5 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-    <url><loc>https://array-psi.vercel.app/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
-    <url><loc>https://array-psi.vercel.app/home</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<urlset 
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+>
+  <url>
+    <loc>https://array-psi.vercel.app/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://array-psi.vercel.app/home</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://array-psi.vercel.app/tools/adobe-portable</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://array-psi.vercel.app/tools/halftone-pattern</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://array-psi.vercel.app/tools/dotted-halftone</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://array-psi.vercel.app/tools/ascii-art</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://array-psi.vercel.app/tools/pixel-art</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://array-psi.vercel.app/tools/pixel-art-generator</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://array-psi.vercel.app/tools/matrix-array</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://array-psi.vercel.app/tools/matrix-login</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://array-psi.vercel.app/tools/grain-effect</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://array-psi.vercel.app/tools/cosmic</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://array-psi.vercel.app/gallery</loc>
+    <priority>0.8</priority>
+  </url>
 </urlset>

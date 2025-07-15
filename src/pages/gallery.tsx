@@ -5,6 +5,7 @@ import { supabase } from '../auth';
 import { Contexti } from '../components/AppContext'
 import { useContext } from 'react';
 import { ClipLoader } from "react-spinners";
+import { Helmet } from 'react-helmet';
 
 
 const PAGE_SIZE = 15; // how many to load at once
@@ -114,38 +115,48 @@ const Gallery = () => {
     
 
   return (
-    <InfiniteScroll
-      dataLength={urls.length}
-      next={() => fetchUrls(from)}
-      hasMore={hasMore}
-      loader={<h4>Loading...</h4>}
-      endMessage={<p style={{ textAlign: "center" }}>No more Images.</p>}
-      className='neo'
-    >
-        {/* { imageDetails && <div className="full-image">
-            <img src={imageDetails} alt="" />
-            <img src={imageDetails1} alt="" />
-        </div> } */}
-        <h2>Welcome to the <b>Arraverse</b></h2>
-        
-        {
-            urls.length > 0 &&
-            urls.map((item, index) => <div className="arraverse-image-container" key={index}
-            >
-            <img src={item.url1} alt="Progressive" loading='lazy' />
-            <img src={item.url} alt="Progressive" loading='lazy' />
-            <div className="download-img" onClick={() => downloadImg(item.url)}>
-                <img src="/download.png" alt="" />
-            </div>
-            </div>)
-        }
-        {loading && 
-            <div className="saving-container">
-                <ClipLoader color="green" size={30} />
-                <p>Loading the Arraverse</p>
-            </div>
-        }
-    </InfiniteScroll>
+
+    <>
+        <Helmet>
+            <title>Gallery</title>
+            <meta name="description" content="Explore a gallery of images with awesome filters." />
+            <link rel="canonical" href="https://array-psi.vercel.app/gallery" />
+        </Helmet>
+
+        <InfiniteScroll
+        dataLength={urls.length}
+        next={() => fetchUrls(from)}
+        hasMore={hasMore}
+        loader={<h4>Loading...</h4>}
+        endMessage={<p style={{ textAlign: "center" }}>No more Images.</p>}
+        className='neo'
+        >
+            {/* { imageDetails && <div className="full-image">
+                <img src={imageDetails} alt="" />
+                <img src={imageDetails1} alt="" />
+            </div> } */}
+            <h1 className='gallery-title'>Welcome to the <b>Arraverse</b></h1>
+            
+            {
+                urls.length > 0 &&
+                urls.map((item, index) => <div className="arraverse-image-container" key={index}
+                >
+                <img src={item.url1} alt="Progressive" loading='lazy' />
+                <img src={item.url} alt="Progressive" loading='lazy' />
+                <div className="download-img" onClick={() => downloadImg(item.url)}>
+                    <img src="/download.png" alt="" />
+                </div>
+                </div>)
+            }
+            {loading && 
+                <div className="saving-container">
+                    <ClipLoader color="green" size={30} />
+                    <p>Loading the Arraverse</p>
+                </div>
+            }
+        </InfiniteScroll>
+
+    </>
   )
 }
 

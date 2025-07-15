@@ -10,11 +10,11 @@
     padding-bottom: 30px;
 }
 
-h2 {
+.gallerty-title {
     color: rgb(57, 255, 31);
     margin: 20px;
 }
-h2 b {
+.gallerty-title b {
     font-family: jd;
     font-size: 20px;
 }

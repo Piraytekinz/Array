@@ -2,7 +2,62 @@
     {
       "slug": "array",
       "title": "Convert images to awesome particle effects.",
-      "description": "Convert any image into particles or digitial art."
+      "description": "Convert any image into particles or digital art."
+    },
+    {
+      "slug": "adobe-portable",
+      "title": "Image Filter AI",
+      "description": "This app can apply awesome filters to your images with ease making you look like a star on social media."
+    },
+    {
+      "slug": "adobe-portable",
+      "title": "Array",
+      "description": "This portable version of adobe after effects can convert your images into awesome particle effects easily."
+    },
+    {
+      "slug": "halftone-pattern",
+      "title": "Halftone Pattern Effect",
+      "description": "Apply a halftone pattern effect to your images with a single click. Much easier and faster than adobe after effects."
+    },
+    {
+      "slug": "dotted-halftone",
+      "title": "Halftone Generator",
+      "description": "Apply a dotted halftone filter to your images with a single click. Much easier than adobe after effects."
+    },
+    {
+      "slug": "ascii-art",
+      "title": "Ascii Art Generator",
+      "description": "Apply an ascii art filter to your images with a single click. Convert your images into different ASCII art examples."
+    },
+    {
+      "slug": "pixel-art",
+      "title": "Array",
+      "description": "Apply a pixel art filter to your images with a single click. Select from the styles menu."
+    },
+    {
+      "slug": "pixel-art-generator",
+      "title": "Pixel Art Generator",
+      "description": "Apply a pixel art filter to your images with a single click. Select from the styles menu."
+    },
+    {
+      "slug": "matrix-array",
+      "title": "Matrix Art Generator",
+      "description": "Apply a matrix effect to your images. Images will be converted into digital rains within a few seconds."
+    },
+    {
+      "slug": "matrix-login",
+      "title": "Matrix Art Generator",
+      "description": "Apply a matrix effect to your images. Images will be converted into digital rains within a few seconds."
+    },
+    {
+      "slug": "grain-effect",
+      "title": "Grain Effect Generator",
+      "description": "Apply a sand grain effect filter to your images with a single click."
+    },
+    {
+      "slug": "cosmic",
+      "title": "Array",
+      "description": "Apply a cosmic filter to your images and make yourself look like a cosmic entity."
     }
 ]
   

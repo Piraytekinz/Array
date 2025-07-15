@@ -497,7 +497,9 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <meta name="description" content="Particle effects." />
+        <title>Image Filter AI</title>
+        <meta name="description" content="Apply awesome filters to your images." />
+        <link rel="canonical" href="https://array-psi.vercel.app/home" />
       </Helmet>
     
     <div className='behind'>

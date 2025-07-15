@@ -5,6 +5,7 @@ import { supabase } from '../auth'
 import { useNavigate } from "react-router-dom";
 import './login.css'
 import { Contexti } from "../components/AppContext";
+import { Helmet } from "react-helmet";
 
 
 export default function LoginPage() {
@@ -98,6 +99,13 @@ export default function LoginPage() {
   }
 
   return (
+    <>
+      <Helmet>
+        <title>Array Login</title>
+        <link rel="canonical" href="https://array-psi.vercel.app/login" />
+        <meta name="description" content="Log into the matrix and apply awesome filters and particle effects to your images." />
+      </Helmet>
+    
     <div className="login-form">
         <h2 className="log-in-message">Log in to the Matrix</h2>
         {
@@ -116,5 +124,6 @@ export default function LoginPage() {
             <button onClick={signInWithGoogle}>Sign In with Google</button>
         </div>
     </div>
+    </>
   );
 }
