@@ -16,6 +16,7 @@ export default function SEOToolPage() {
       <Helmet>
         <title>{page.title}</title>
         <meta name="description" content={page.description} />
+        <link rel="canonical" href={`https://array-psi.vercel.app/tools/${slug}`} />
       </Helmet>
 
       <Home />

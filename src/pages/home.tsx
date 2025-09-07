@@ -4,6 +4,7 @@ import ImageContainer from '../components/ImageContainer'
 import Preset from "../components/Preset";
 import SliderComponent from "../components/Slider";
 import ToggleButton from "../components/ToggleButton"
+import Notify from "../components/notify";
 import './home.css'
 import './videobackground.css'
 import { ClipLoader } from "react-spinners";
@@ -140,9 +141,10 @@ const Home = () => {
   const [savedURL, setSavedURL] = useState<string>("")
   const [inputImage, setInputImage] = useState<any | null>(null)
   const [savingText, setSavingText] = useState("Saving to the Arraverse")
+  const [textNotify, setNotificationText] = useState<string | null>(null)
+  const [notify, setnotify] = useState(false)
   // const [fullScreenImage, setFullscreenImage] = useState(false)
 
-  
 
   
 
@@ -187,7 +189,8 @@ const Home = () => {
       setImgData(blob)
     } catch (err) {
       console.error(err);
-      alert("Upload failed.");
+      setNotificationText("Upload failed.");
+      setnotify(true)
     }
     console.log('Stop loading animation dammit!!!')
     stopLoadingAnimation()
@@ -268,6 +271,10 @@ const Home = () => {
       "img": "/tiger-cosmic.png"
     },
     {
+      "name": "Bar Code",
+      "img": "/tiger-barcode.jpeg"
+    },
+    {
       "name": "Americana",
       "img": "/tiger-americana.jpeg"
     },
@@ -288,6 +295,9 @@ const Home = () => {
     15,
     16
   ]
+  const signinrequired = [
+    7, 8, 13, 14, 17, 19, 20, 21, 22, 23
+  ]
 
 
 
@@ -296,7 +306,8 @@ const Home = () => {
   const cloudinaryUpload = async () => {
     if (!processedImageURL) return;
     if (uid === null) {
-      alert('You have to be signed in to save this image.')
+      setNotificationText('You have to be signed in to save this image.')
+      setnotify(true)
       return
     }
     setIsSaving(true)
@@ -316,7 +327,8 @@ const Home = () => {
       .then(data => {
 
         setSavedURL(data.url)
-        alert('Saved to the Arraverse')
+        setNotificationText('Saved to the Arraverse')
+        setnotify(true)
         setIsSaving(false)
       })
       .catch(error => {
@@ -366,6 +378,13 @@ const Home = () => {
   // WHILE ACTIVATING THEIR BOX TURNING THE BACKGROUND
   // GREEN
   function changeVal(val: string, idx: number) {
+    if (signinrequired.includes(idx)) {
+      setPresetValue('Matrix')
+      setActiveIndex(0)
+      setNotificationText('You need to be signed in to use this style.')
+      setnotify(true)
+      return
+    }
     setPresetValue(val)
     setActiveIndex(idx)
     console.log("Active Index", idx)
@@ -480,6 +499,14 @@ const Home = () => {
         if (savingText === 'Saved to the Arraverse') {
           setIsSaving(false);
         }
+        if (textNotify !== null) {
+          console.log('IT WASNT EMPTY!!!!')
+          setNotificationText(null)
+        } else {
+          console.log(textNotify, 'IT IS EMPTY DAMMIT')
+          setnotify(false)
+        }
+
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -524,7 +551,7 @@ const Home = () => {
 
       <div className="app">
         
-        
+        <Notify open={notify} text={textNotify} />
 
         <div className="top-bar">
             <button className="styles" onClick={() => setOpenmenu('open')}>Styles</button>

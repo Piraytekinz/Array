@@ -10,11 +10,12 @@
     padding-bottom: 30px;
 }
 
-.gallerty-title {
+.gallery-title {
     color: rgb(57, 255, 31);
     margin: 20px;
+    font-family: monospace;
 }
-.gallerty-title b {
+.gallery-title b {
     font-family: jd;
     font-size: 20px;
 }
